@@ -16,7 +16,7 @@ class SearchResultCell: UICollectionViewCell {
     
     // MARK: - Views
     
-    lazy var appImageView: UIImageView = {
+    lazy var appIconImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .red
         imageView.layer.cornerRadius = 12
@@ -51,28 +51,25 @@ class SearchResultCell: UICollectionViewCell {
         button.setTitleColor(.blue, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
         button.backgroundColor = .systemPurple
-        button.layer.cornerRadius = 14
+        button.layer.cornerRadius = 16
         
         return button
     }()
     
-    lazy var labelsStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [nameLabel, categoryLabel, ratingsLabel])
-        stackView.axis = .vertical
-        stackView.distribution = .fillEqually
-        
-        return stackView
-    }()
+    lazy var labelsStackView = VerticalStackView(arrangedSubviews: [nameLabel, categoryLabel, ratingsLabel])
     
-    lazy var infoStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [appImageView, labelsStackView, getButton])
-        stackView.axis = .horizontal
-        stackView.spacing = 12
-        stackView.alignment = .center
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return stackView
-    }()
+    lazy var infoTopStackView = HorizontalStackView(arrangedSubviews: [appIconImageView, labelsStackView, getButton], alignment: .center, spacing: 12)
+    
+    lazy var screenshot1ImageView  = createScreenshotImageView()
+    lazy var screenshot2ImageView  = createScreenshotImageView()
+    lazy var screenshot3ImageView  = createScreenshotImageView()
+    
+    lazy var screeshotsStackView = HorizontalStackView(arrangedSubviews: [screenshot1ImageView, screenshot2ImageView, screenshot3ImageView],
+                                                       distribution: .fillEqually,
+                                                       spacing: 16)
+    
+    lazy var overalStackView = VerticalStackView(arrangedSubviews: [infoTopStackView, screeshotsStackView], spacing: 16)
+    
     
     // MARK: - Lifecycle
     
@@ -89,28 +86,28 @@ class SearchResultCell: UICollectionViewCell {
     // MARK: - Helpers
     
     private func configure() {
-        backgroundColor = .green
-        
         addViews()
         anchorViews()
     }
     
     private func addViews() {
-        addSubview(infoStackView)
+        addSubview(overalStackView)
     }
     
     private func anchorViews() {
-        NSLayoutConstraint.activate([
-            infoStackView.topAnchor.constraint(equalTo: topAnchor),
-            infoStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
-            infoStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            infoStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
-            
-            appImageView.widthAnchor.constraint(equalToConstant: 64),
-            appImageView.heightAnchor.constraint(equalToConstant: 64),
-            
-            getButton.widthAnchor.constraint(equalToConstant: 80)
-        ])
+        overalStackView.fillSuperview(padding: .init(top: 16, left: 16, bottom: 16, right: 16))
+        
+        appIconImageView.constrainWidth(constant: 64)
+        appIconImageView.constrainHeight(constant: 64)
+        
+        getButton.constrainHeight(constant: 32)
+        getButton.constrainWidth(constant: 80)
     }
     
+    private func createScreenshotImageView() -> UIImageView {
+        let imageView = UIImageView()
+        imageView.backgroundColor = .blue
+        
+        return imageView
+    }
 }
