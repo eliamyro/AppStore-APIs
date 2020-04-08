@@ -24,6 +24,7 @@ class AppsSearchController: UICollectionViewController {
         super.viewDidLoad()
         
         configure()
+        fetchITunesApps()
     }
     
     // MARK: - Helpers
@@ -31,6 +32,30 @@ class AppsSearchController: UICollectionViewController {
     private func configure() {
         collectionView.backgroundColor = .white
         collectionView.register(SearchResultCell.self, forCellWithReuseIdentifier: SearchResultCell.reuseIdentifier)
+    }
+    
+    private func fetchITunesApps() {
+        let urlString = "https://itunes.apple.com/search?term=instagram&entity=software"
+        guard let url = URL(string: urlString) else { return }
+        
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print("DEBUG: Failed to fetch apps \(error.localizedDescription)")
+                return
+            }
+            
+            guard let data = data else { return }
+            
+            do {
+                let searchResult =  try JSONDecoder().decode(SearchResult.self, from: data)
+                searchResult.results.forEach { result in
+                    print(result.trackName, result.primaryGenreName)
+                }
+            } catch {
+                print("DEBUG: Failed to decode JSON \(error.localizedDescription)")
+            }
+            
+        }.resume()
     }
 }
 
