@@ -21,4 +21,5 @@ enum Text {
     static let error = "Error"
     static let ok = "OK"
     static let get = "GET"
+    static let enterSearchTerm = "Please enter search term above..."
 }

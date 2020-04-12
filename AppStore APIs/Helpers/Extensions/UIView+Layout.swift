@@ -10,104 +10,103 @@ import UIKit
 
 extension UIView {
     
-    @discardableResult
-    func anchor(top: NSLayoutYAxisAnchor?, leading: NSLayoutXAxisAnchor?, bottom: NSLayoutYAxisAnchor?, trailing: NSLayoutXAxisAnchor?, padding: UIEdgeInsets = .zero, size: CGSize = .zero) -> AnchoredConstraints {
-        
-        translatesAutoresizingMaskIntoConstraints = false
-        var anchoredConstraints = AnchoredConstraints()
-        
-        if let top = top {
-            anchoredConstraints.top = topAnchor.constraint(equalTo: top, constant: padding.top)
-        }
-        
-        if let leading = leading {
-            anchoredConstraints.leading = leadingAnchor.constraint(equalTo: leading, constant: padding.left)
-        }
-        
-        if let bottom = bottom {
-            anchoredConstraints.bottom = bottomAnchor.constraint(equalTo: bottom, constant: -padding.bottom)
-        }
-        
-        if let trailing = trailing {
-            anchoredConstraints.trailing = trailingAnchor.constraint(equalTo: trailing, constant: -padding.right)
-        }
-        
-        if size.width != 0 {
-            anchoredConstraints.width = widthAnchor.constraint(equalToConstant: size.width)
-        }
-        
-        if size.height != 0 {
-            anchoredConstraints.height = heightAnchor.constraint(equalToConstant: size.height)
-        }
-        
-        [anchoredConstraints.top, anchoredConstraints.leading, anchoredConstraints.bottom, anchoredConstraints.trailing, anchoredConstraints.width, anchoredConstraints.height].forEach{ $0?.isActive = true }
-        
-        return anchoredConstraints
-    }
-    
     func fillSuperview(padding: UIEdgeInsets = .zero) {
+       translatesAutoresizingMaskIntoConstraints = false
+       
+       if let superview = superview {
+        topAnchor.constraint(equalTo: superview.topAnchor, constant: padding.top).isActive = true
+        leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: padding.left).isActive = true
+        bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: -padding.bottom).isActive = true
+        trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: -padding.right).isActive = true
+       }
+   }
+   
+   func anchor(top: NSLayoutYAxisAnchor? = nil, leading: NSLayoutXAxisAnchor? = nil, bottom: NSLayoutYAxisAnchor? = nil, trailing: NSLayoutXAxisAnchor? = nil, margin: UIEdgeInsets = .zero, size: CGSize = .zero) {
+       translatesAutoresizingMaskIntoConstraints = false
+       
+       _ = anchorWithReturnAnchors(top: top, leading: leading, bottom: bottom, trailing: trailing, margin: margin, size: size)
+   }
+   
+   func anchorWithReturnAnchors(top: NSLayoutYAxisAnchor? = nil, leading: NSLayoutXAxisAnchor? = nil, bottom: NSLayoutYAxisAnchor? = nil, trailing: NSLayoutXAxisAnchor? = nil, margin: UIEdgeInsets = .zero, size: CGSize = .zero) -> [NSLayoutConstraint] {
+       var anchors = [NSLayoutConstraint]()
+       
+       if let top = top {
+           anchors.append(topAnchor.constraint(equalTo: top, constant: margin.top))
+       }
+       
+       if let leading = leading {
+           anchors.append(leadingAnchor.constraint(equalTo: leading, constant: margin.left))
+       }
+       
+       if let bottom = bottom {
+           anchors.append(bottomAnchor.constraint(equalTo: bottom, constant: -margin.bottom))
+       }
+       
+       if let trailing = trailing {
+           anchors.append(trailingAnchor.constraint(equalTo: trailing, constant: -margin.right))
+       }
+       
+       if size.width != 0 {
+           anchors.append(widthAnchor.constraint(equalToConstant: size.width))
+       }
+       
+       if size.height != 0 {
+           anchors.append(heightAnchor.constraint(equalToConstant: size.height))
+       }
+       
+       anchors.forEach({$0.isActive = true})
+       
+       return anchors
+   }
+   
+   func anchorHW(height: NSLayoutDimension? = nil, width: NSLayoutDimension? = nil, hMultiplier: CGFloat = 1, wMultiplier: CGFloat = 1) {
+       translatesAutoresizingMaskIntoConstraints = false
+       
+       if let height = height {
+           heightAnchor.constraint(equalTo: height, multiplier: hMultiplier).isActive = true
+       }
+       
+       if let width = width {
+           widthAnchor.constraint(equalTo: width, multiplier: wMultiplier).isActive = true
+       }
+   }
+   
+   func anchorHeightWidth(height: NSLayoutDimension? = nil, width: NSLayoutDimension? = nil, multiplier: CGFloat = 1) {
+       translatesAutoresizingMaskIntoConstraints = false
+       
+       if let height = height {
+           heightAnchor.constraint(equalTo: height, multiplier: multiplier).isActive = true
+       }
+       
+       if let width = width {
+           widthAnchor.constraint(equalTo: width, multiplier: multiplier).isActive = true
+       }
+   }
+   
+   func anchorHeightWidth(heightConstant: CGFloat? = nil, widthConstant: CGFloat? = nil) {
+       translatesAutoresizingMaskIntoConstraints = false
+       
+       if let height = heightConstant {
+           heightAnchor.constraint(equalToConstant: height).isActive = true
+       }
+       
+       if let width = widthConstant {
+           widthAnchor.constraint(equalToConstant: width).isActive = true
+       }
+   }
+   
+   func anchorCenterXToView(view: UIView, constant: CGFloat = 0) {
         translatesAutoresizingMaskIntoConstraints = false
-        if let superviewTopAnchor = superview?.topAnchor {
-            topAnchor.constraint(equalTo: superviewTopAnchor, constant: padding.top).isActive = true
-        }
-        
-        if let superviewBottomAnchor = superview?.bottomAnchor {
-            bottomAnchor.constraint(equalTo: superviewBottomAnchor, constant: -padding.bottom).isActive = true
-        }
-        
-        if let superviewLeadingAnchor = superview?.leadingAnchor {
-            leadingAnchor.constraint(equalTo: superviewLeadingAnchor, constant: padding.left).isActive = true
-        }
-        
-        if let superviewTrailingAnchor = superview?.trailingAnchor {
-            trailingAnchor.constraint(equalTo: superviewTrailingAnchor, constant: -padding.right).isActive = true
-        }
-    }
-    
-    func centerInSuperview(size: CGSize = .zero) {
-        translatesAutoresizingMaskIntoConstraints = false
-        if let superviewCenterXAnchor = superview?.centerXAnchor {
-            centerXAnchor.constraint(equalTo: superviewCenterXAnchor).isActive = true
-        }
-        
-        if let superviewCenterYAnchor = superview?.centerYAnchor {
-            centerYAnchor.constraint(equalTo: superviewCenterYAnchor).isActive = true
-        }
-        
-        if size.width != 0 {
-            widthAnchor.constraint(equalToConstant: size.width).isActive = true
-        }
-        
-        if size.height != 0 {
-            heightAnchor.constraint(equalToConstant: size.height).isActive = true
-        }
-    }
-    
-    func centerXInSuperview() {
-        translatesAutoresizingMaskIntoConstraints = false
-        if let superViewCenterXAnchor = superview?.centerXAnchor {
-            centerXAnchor.constraint(equalTo: superViewCenterXAnchor).isActive = true
-        }
-    }
-    
-    func centerYInSuperview() {
-        translatesAutoresizingMaskIntoConstraints = false
-        if let centerY = superview?.centerYAnchor {
-            centerYAnchor.constraint(equalTo: centerY).isActive = true
-        }
-    }
-    
-    func constrainWidth(constant: CGFloat) {
-        translatesAutoresizingMaskIntoConstraints = false
-        widthAnchor.constraint(equalToConstant: constant).isActive = true
-    }
-    
-    func constrainHeight(constant: CGFloat) {
-        translatesAutoresizingMaskIntoConstraints = false
-        heightAnchor.constraint(equalToConstant: constant).isActive = true
-    }
-}
-
-struct AnchoredConstraints {
-    var top, leading, bottom, trailing, width, height: NSLayoutConstraint?
+        centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: constant).isActive = true
+   }
+   
+   func anchorCenterYToView(view: UIView, constant: CGFloat = 0) {
+       translatesAutoresizingMaskIntoConstraints = false
+       centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: constant).isActive = true
+   }
+   
+   func anchorCenterToView(view: UIView) {
+       anchorCenterXToView(view: view)
+       anchorCenterYToView(view: view)
+   }
 }

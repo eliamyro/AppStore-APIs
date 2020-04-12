@@ -25,33 +25,17 @@ class SearchResultCell: UICollectionViewCell {
     
     lazy var appIconImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .red
         imageView.layer.cornerRadius = 12
         imageView.clipsToBounds = true
         
         return imageView
     }()
     
-    lazy var nameLabel: UILabel = {
-        let label = UILabel()
-        label.text = "App name"
-        
-        return label
-    }()
+    lazy var nameLabel = UILabel()
     
-    lazy var categoryLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Photo & Video"
-        
-        return label
-    }()
+    lazy var categoryLabel = UILabel ()
     
-    lazy var ratingsLabel: UILabel = {
-        let label = UILabel()
-        label.text = "9.2M"
-        
-        return label
-    }()
+    lazy var ratingsLabel = UILabel()
     
     lazy var getButton: UIButton = {
         let button = UIButton(type: .system)
@@ -104,12 +88,8 @@ class SearchResultCell: UICollectionViewCell {
     
     private func anchorViews() {
         overalStackView.fillSuperview(padding: .init(top: 16, left: 16, bottom: 16, right: 16))
-        
-        appIconImageView.constrainWidth(constant: 64)
-        appIconImageView.constrainHeight(constant: 64)
-        
-        getButton.constrainHeight(constant: 32)
-        getButton.constrainWidth(constant: 80)
+        appIconImageView.anchorHeightWidth(heightConstant: 64, widthConstant: 64)
+        getButton.anchorHeightWidth(heightConstant: 32, widthConstant: 80)
     }
     
     private func createScreenshotImageView() -> UIImageView {
