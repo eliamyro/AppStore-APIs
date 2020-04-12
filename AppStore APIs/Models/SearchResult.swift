@@ -8,12 +8,13 @@
 
 import Foundation
 
-struct SearchResult: Decodable {
+struct SearchResults: Decodable {
     let resultCount: Int
-    let results: [Result]
+    let results: [SearchResult]
 }
 
-struct Result: Decodable {
+struct SearchResult: Decodable {
     let trackName: String
     let primaryGenreName: String
+    let averageUserRating: Float?
 }

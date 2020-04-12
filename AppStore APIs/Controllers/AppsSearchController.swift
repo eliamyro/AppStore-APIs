@@ -10,6 +10,10 @@ import UIKit
 
 class AppsSearchController: UICollectionViewController {
     
+    // MARK: - Properties
+    
+    private var appResults = [SearchResult]()
+    
     // MARK: - Lifecycle
     
     init() {
@@ -35,27 +39,15 @@ class AppsSearchController: UICollectionViewController {
     }
     
     private func fetchITunesApps() {
-        let urlString = "https://itunes.apple.com/search?term=instagram&entity=software"
-        guard let url = URL(string: urlString) else { return }
-        
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            if let error = error {
-                print("DEBUG: Failed to fetch apps \(error.localizedDescription)")
-                return
+        Service.shared.fetchApps { [weak self] result in
+            switch result {
+            case .success(let searchResults):
+                self?.appResults = searchResults
+                DispatchQueue.main.async { self?.collectionView.reloadData() }
+            case .failure(let error):
+                self?.showAlertOnMainThread(title: Text.error, message: error.localizedDescription, actionTitle: Text.ok)
             }
-            
-            guard let data = data else { return }
-            
-            do {
-                let searchResult =  try JSONDecoder().decode(SearchResult.self, from: data)
-                searchResult.results.forEach { result in
-                    print(result.trackName, result.primaryGenreName)
-                }
-            } catch {
-                print("DEBUG: Failed to decode JSON \(error.localizedDescription)")
-            }
-            
-        }.resume()
+        }
     }
 }
 
@@ -63,11 +55,12 @@ class AppsSearchController: UICollectionViewController {
 
 extension AppsSearchController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return appResults.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchResultCell.reuseIdentifier, for: indexPath) as! SearchResultCell
+        cell.appResult = appResults[indexPath.item]
         
         return cell
     }

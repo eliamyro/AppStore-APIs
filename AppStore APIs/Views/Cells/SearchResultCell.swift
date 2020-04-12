@@ -14,6 +14,12 @@ class SearchResultCell: UICollectionViewCell {
     
     static let reuseIdentifier = "SearchResultCell"
     
+    var appResult: SearchResult? {
+        didSet {
+            updateViewsWithData()
+        }
+    }
+    
     // MARK: - Views
     
     lazy var appIconImageView: UIImageView = {
@@ -109,5 +115,13 @@ class SearchResultCell: UICollectionViewCell {
         imageView.backgroundColor = .blue
         
         return imageView
+    }
+    
+    private func updateViewsWithData() {
+        guard let appResult = appResult else { return }
+        
+        nameLabel.text = appResult.trackName
+        categoryLabel.text = appResult.primaryGenreName
+        ratingsLabel.text = "\(appResult.averageUserRating ?? 0)"
     }
 }

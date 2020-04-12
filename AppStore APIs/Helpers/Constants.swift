@@ -18,4 +18,6 @@ enum Text {
     static let today = "Today"
     static let apps = "Apps"
     static let search = "Search"
+    static let error = "Error"
+    static let ok = "OK"
 }
