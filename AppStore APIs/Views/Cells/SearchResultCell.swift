@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class SearchResultCell: UICollectionViewCell {
     
@@ -26,6 +27,7 @@ class SearchResultCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.backgroundColor = .red
         imageView.layer.cornerRadius = 12
+        imageView.clipsToBounds = true
         
         return imageView
     }()
@@ -53,10 +55,10 @@ class SearchResultCell: UICollectionViewCell {
     
     lazy var getButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("GET", for: .normal)
+        button.setTitle(Text.get, for: .normal)
         button.setTitleColor(.blue, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
-        button.backgroundColor = .systemPurple
+        button.backgroundColor = UIColor(white: 0.95, alpha: 1)
         button.layer.cornerRadius = 16
         
         return button
@@ -112,7 +114,11 @@ class SearchResultCell: UICollectionViewCell {
     
     private func createScreenshotImageView() -> UIImageView {
         let imageView = UIImageView()
-        imageView.backgroundColor = .blue
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.cornerRadius = 8
+        imageView.clipsToBounds = true
+        imageView.layer.borderWidth = 0.5
+        imageView.layer.borderColor = UIColor(white: 0.5, alpha: 0.5).cgColor
         
         return imageView
     }
@@ -123,5 +129,18 @@ class SearchResultCell: UICollectionViewCell {
         nameLabel.text = appResult.trackName
         categoryLabel.text = appResult.primaryGenreName
         ratingsLabel.text = "\(appResult.averageUserRating ?? 0)"
+        
+        guard let appIconUrl = URL(string:appResult.artworkUrl) else { return }
+        appIconImageView.sd_setImage(with: appIconUrl)
+        
+        screenshot1ImageView.sd_setImage(with: URL(string: appResult.screenshotUrls[0]))
+        
+        if appResult.screenshotUrls.count > 1 {
+            screenshot2ImageView.sd_setImage(with: URL(string: appResult.screenshotUrls[1]))
+        }
+        
+        if appResult.screenshotUrls.count > 2 {
+            screenshot3ImageView.sd_setImage(with: URL(string: appResult.screenshotUrls[2]))
+        }
     }
 }
