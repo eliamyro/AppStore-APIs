@@ -15,6 +15,11 @@
 		811DDC28243B9E6200AA50AC /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811DDC27243B9E6200AA50AC /* BaseTabBarController.swift */; };
 		811E3A73243BCC3F000DCF63 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811E3A72243BCC3F000DCF63 /* Constants.swift */; };
 		811E3A76243BD28B000DCF63 /* AppsSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811E3A75243BD28B000DCF63 /* AppsSearchController.swift */; };
+		814E4B35244484610068F3F3 /* AppsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 814E4B34244484610068F3F3 /* AppsController.swift */; };
+		814E4B372444851D0068F3F3 /* BaseListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 814E4B362444851D0068F3F3 /* BaseListController.swift */; };
+		814E4B3A2444884F0068F3F3 /* AppsGroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 814E4B392444884F0068F3F3 /* AppsGroupCell.swift */; };
+		814E4B3C24448AFE0068F3F3 /* UILabel+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 814E4B3B24448AFE0068F3F3 /* UILabel+Ext.swift */; };
+		814E4B3E24448E270068F3F3 /* AppsHorizontalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 814E4B3D24448E270068F3F3 /* AppsHorizontalController.swift */; };
 		81563368243E35D8008F0CB4 /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81563367243E35D8008F0CB4 /* UIView+Layout.swift */; };
 		8156336C243E3C0B008F0CB4 /* VerticalStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8156336B243E3C0B008F0CB4 /* VerticalStackView.swift */; };
 		8156336E243E3E3F008F0CB4 /* HorizontalStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8156336D243E3E3F008F0CB4 /* HorizontalStackView.swift */; };
@@ -39,6 +44,11 @@
 		811DDC27243B9E6200AA50AC /* BaseTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBarController.swift; sourceTree = "<group>"; };
 		811E3A72243BCC3F000DCF63 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		811E3A75243BD28B000DCF63 /* AppsSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsSearchController.swift; sourceTree = "<group>"; };
+		814E4B34244484610068F3F3 /* AppsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsController.swift; sourceTree = "<group>"; };
+		814E4B362444851D0068F3F3 /* BaseListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseListController.swift; sourceTree = "<group>"; };
+		814E4B392444884F0068F3F3 /* AppsGroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsGroupCell.swift; sourceTree = "<group>"; };
+		814E4B3B24448AFE0068F3F3 /* UILabel+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Ext.swift"; sourceTree = "<group>"; };
+		814E4B3D24448E270068F3F3 /* AppsHorizontalController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsHorizontalController.swift; sourceTree = "<group>"; };
 		81563367243E35D8008F0CB4 /* UIView+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
 		8156336B243E3C0B008F0CB4 /* VerticalStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalStackView.swift; sourceTree = "<group>"; };
 		8156336D243E3E3F008F0CB4 /* HorizontalStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalStackView.swift; sourceTree = "<group>"; };
@@ -107,10 +117,29 @@
 		811E3A74243BD254000DCF63 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				814E4B38244485A80068F3F3 /* Search */,
+				814E4B33244484510068F3F3 /* Apps */,
 				811DDC27243B9E6200AA50AC /* BaseTabBarController.swift */,
-				811E3A75243BD28B000DCF63 /* AppsSearchController.swift */,
+				814E4B362444851D0068F3F3 /* BaseListController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		814E4B33244484510068F3F3 /* Apps */ = {
+			isa = PBXGroup;
+			children = (
+				814E4B34244484610068F3F3 /* AppsController.swift */,
+				814E4B3D24448E270068F3F3 /* AppsHorizontalController.swift */,
+			);
+			path = Apps;
+			sourceTree = "<group>";
+		};
+		814E4B38244485A80068F3F3 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				811E3A75243BD28B000DCF63 /* AppsSearchController.swift */,
+			);
+			path = Search;
 			sourceTree = "<group>";
 		};
 		81563366243E356C008F0CB4 /* Extensions */ = {
@@ -118,6 +147,7 @@
 			children = (
 				81563367243E35D8008F0CB4 /* UIView+Layout.swift */,
 				81CF43052443317A00ECA865 /* UIViewController+Ext.swift */,
+				814E4B3B24448AFE0068F3F3 /* UILabel+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -161,6 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				81BD00FD243CC5D700CA76FD /* SearchResultCell.swift */,
+				814E4B392444884F0068F3F3 /* AppsGroupCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -301,11 +332,16 @@
 				811DDC10243B9D6A00AA50AC /* AppDelegate.swift in Sources */,
 				81CF43062443317A00ECA865 /* UIViewController+Ext.swift in Sources */,
 				81563371243E4A37008F0CB4 /* SearchResult.swift in Sources */,
+				814E4B3A2444884F0068F3F3 /* AppsGroupCell.swift in Sources */,
 				811DDC12243B9D6A00AA50AC /* SceneDelegate.swift in Sources */,
+				814E4B3C24448AFE0068F3F3 /* UILabel+Ext.swift in Sources */,
 				811E3A76243BD28B000DCF63 /* AppsSearchController.swift in Sources */,
 				81BD00FE243CC5D700CA76FD /* SearchResultCell.swift in Sources */,
 				8156336C243E3C0B008F0CB4 /* VerticalStackView.swift in Sources */,
+				814E4B35244484610068F3F3 /* AppsController.swift in Sources */,
 				8156336E243E3E3F008F0CB4 /* HorizontalStackView.swift in Sources */,
+				814E4B3E24448E270068F3F3 /* AppsHorizontalController.swift in Sources */,
+				814E4B372444851D0068F3F3 /* BaseListController.swift in Sources */,
 				81CF430424432F0900ECA865 /* Service.swift in Sources */,
 				81563368243E35D8008F0CB4 /* UIView+Layout.swift in Sources */,
 				811E3A73243BCC3F000DCF63 /* Constants.swift in Sources */,
