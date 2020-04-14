@@ -35,7 +35,7 @@ class AppsGroupCell: UICollectionViewCell {
     // MARK: - Helpers
     
     private func configure() {
-        backgroundColor = .lightGray
+        backgroundColor = .white
         
         addViews()
         anchorViews()
@@ -47,7 +47,7 @@ class AppsGroupCell: UICollectionViewCell {
     }
     
     private func anchorViews() {
-        titleLabel.anchor(top: topAnchor, leading: leadingAnchor, trailing: trailingAnchor)
+        titleLabel.anchor(top: topAnchor, leading: leadingAnchor, trailing: trailingAnchor, margin: .init(top: 0, left: 16, bottom: 0, right: 0))
         horizontalController.view.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor)
     }
 }

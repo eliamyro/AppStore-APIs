@@ -10,10 +10,6 @@ import UIKit
 
 class AppsHorizontalController: BaseListController {
     
-    // MARK: - Properties
-    
-    let reuseIdentifier = "cellId"
-    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -25,8 +21,8 @@ class AppsHorizontalController: BaseListController {
     // MARK: - Helpers
     
     private func configure() {
-        collectionView.backgroundColor = .blue
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        collectionView.backgroundColor = .white
+        collectionView.register(AppRowCell.self, forCellWithReuseIdentifier: AppRowCell.reuseIdentifier)
         
         if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .horizontal
@@ -42,8 +38,7 @@ extension AppsHorizontalController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-        cell.backgroundColor = .red
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AppRowCell.reuseIdentifier, for: indexPath) as! AppRowCell
         
         return cell
     }
@@ -57,13 +52,17 @@ extension AppsHorizontalController {
 
 extension AppsHorizontalController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = view.frame.width
-        let height = (view.frame.height - 20 - 24) / 3
+        let width = view.frame.width - 48
+        let height = (view.frame.height - 24 - 20) / 3
         
         return CGSize(width: width, height: height)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 10
     }
 }

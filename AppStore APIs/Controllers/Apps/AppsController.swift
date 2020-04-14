@@ -23,7 +23,7 @@ class AppsController: BaseListController {
     // MARK: - Helpers
     
     private func configure() {
-        collectionView.backgroundColor = .yellow
+        collectionView.backgroundColor = .white
         collectionView.register(AppsGroupCell.self, forCellWithReuseIdentifier: AppsGroupCell.reuseIdentifier)
     }
 }
@@ -40,12 +40,16 @@ extension AppsController {
         
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return .init(top: 16, left: 0, bottom: 0, right: 0)
+    }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
 
 extension AppsController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: 250)
+        return CGSize(width: view.frame.width, height: 300)
     }
 }
