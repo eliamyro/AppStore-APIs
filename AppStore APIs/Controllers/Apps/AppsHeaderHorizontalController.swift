@@ -21,7 +21,7 @@ class AppsHeaderHorizontalController: BaseListController {
     // MARK: - Helpers
     
     private func configure() {
-        collectionView.backgroundColor = .purple
+        collectionView.backgroundColor = .white
         collectionView.register(AppsHeaderCell.self, forCellWithReuseIdentifier: AppsHeaderCell.reuseIdentifier)
         
         if let layout = collectionViewLayout as? UICollectionViewFlowLayout {

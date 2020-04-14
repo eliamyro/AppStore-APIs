@@ -14,6 +14,12 @@ class AppsGroupCell: UICollectionViewCell {
     
     static let reuseIdentifier = "AppsGroupCell"
     
+    var appGroup: AppGroup? {
+        didSet {
+            configureGroupViewWithData()
+        }
+    }
+    
     // MARK: - Views
     
     lazy var titleLabel = UILabel(text: "APP SECTION", font: .boldSystemFont(ofSize: 26))
@@ -49,5 +55,10 @@ class AppsGroupCell: UICollectionViewCell {
     private func anchorViews() {
         titleLabel.anchor(top: topAnchor, leading: leadingAnchor, trailing: trailingAnchor, margin: .init(top: 0, left: 16, bottom: 0, right: 0))
         horizontalController.view.anchor(top: titleLabel.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor)
+    }
+    
+    private func configureGroupViewWithData() {
+        guard let appGroup = appGroup else { return }
+        titleLabel.text = appGroup.feed.title
     }
 }

@@ -10,12 +10,17 @@ import UIKit
 
 class AppsPageController: BaseListController {
     
+    // MARK: - Properties
+    
+    var appGroup = [AppGroup]()
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configure()
+        fetchData()
     }
     
     // MARK: - Helpers
@@ -26,18 +31,31 @@ class AppsPageController: BaseListController {
         collectionView.register(AppsPageHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: AppsPageHeader.reuseIdentifier)
         
     }
+    
+    private func fetchData() {
+        print("DEBUG: Fetch JSON data...")
+        Service.shared.fetchGames { [weak self] result in
+            switch result {
+            case .success(let appGroup):
+                self?.appGroup.append(appGroup)
+                DispatchQueue.main.async { self?.collectionView.reloadData() }
+            case .failure(let error):
+                self?.showAlertOnMainThread(title: Text.error, message: error.localizedDescription, actionTitle: Text.ok)
+            }
+        }
+    }
 }
 
 // MARK: - UICollectionViewDatasource
 
 extension AppsPageController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return appGroup.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AppsGroupCell.reuseIdentifier, for: indexPath)
-        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AppsGroupCell.reuseIdentifier, for: indexPath) as! AppsGroupCell
+        cell.appGroup = appGroup[indexPath.item]
         return cell
     }
     

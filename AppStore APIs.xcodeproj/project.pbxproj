@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		810B0F0E24460DC400B455C2 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810B0F0D24460DC400B455C2 /* AppGroup.swift */; };
 		811DDC10243B9D6A00AA50AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811DDC0F243B9D6A00AA50AC /* AppDelegate.swift */; };
 		811DDC12243B9D6A00AA50AC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811DDC11243B9D6A00AA50AC /* SceneDelegate.swift */; };
 		811DDC19243B9D6B00AA50AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 811DDC18243B9D6B00AA50AC /* Assets.xcassets */; };
@@ -40,6 +41,7 @@
 		112CF945B452326A312A22E9 /* Pods_AppStore_APIs.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AppStore_APIs.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		263BC84DB5FD200C195D5541 /* Pods-AppStore APIs.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppStore APIs.debug.xcconfig"; path = "Target Support Files/Pods-AppStore APIs/Pods-AppStore APIs.debug.xcconfig"; sourceTree = "<group>"; };
 		5B575516B72E251F5A03B1F8 /* Pods-AppStore APIs.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppStore APIs.release.xcconfig"; path = "Target Support Files/Pods-AppStore APIs/Pods-AppStore APIs.release.xcconfig"; sourceTree = "<group>"; };
+		810B0F0D24460DC400B455C2 /* AppGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppGroup.swift; sourceTree = "<group>"; };
 		811DDC0C243B9D6A00AA50AC /* AppStore APIs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AppStore APIs.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		811DDC0F243B9D6A00AA50AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		811DDC11243B9D6A00AA50AC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				81563370243E4A37008F0CB4 /* SearchResult.swift */,
+				810B0F0D24460DC400B455C2 /* AppGroup.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -362,6 +365,7 @@
 				8156336C243E3C0B008F0CB4 /* VerticalStackView.swift in Sources */,
 				815D0C042445C813002F137B /* AppsPageHeader.swift in Sources */,
 				814E4B35244484610068F3F3 /* AppsPageController.swift in Sources */,
+				810B0F0E24460DC400B455C2 /* AppGroup.swift in Sources */,
 				8156336E243E3E3F008F0CB4 /* HorizontalStackView.swift in Sources */,
 				814E4B3E24448E270068F3F3 /* AppsHorizontalController.swift in Sources */,
 				811F675A2445B0F5005D1A29 /* UIButton+Ext.swift in Sources */,

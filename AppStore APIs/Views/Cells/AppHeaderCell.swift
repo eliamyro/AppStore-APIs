@@ -54,8 +54,6 @@ class AppsHeaderCell: UICollectionViewCell {
     // MARK: - Helpers
     
     private func configure() {
-        backgroundColor = .yellow
-        
         addViews()
         anchorViews()
     }
