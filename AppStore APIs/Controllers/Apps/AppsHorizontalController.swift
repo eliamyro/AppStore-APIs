@@ -10,6 +10,16 @@ import UIKit
 
 class AppsHorizontalController: BaseListController {
     
+    // MARK: - Properties
+    
+    var appGroup: AppGroup? {
+        didSet {
+            configureViewsWithAppGroup()
+        }
+    }
+    
+    var apps = [FeedResult]()
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -28,17 +38,23 @@ class AppsHorizontalController: BaseListController {
             layout.scrollDirection = .horizontal
         }
     }
+    
+    private func configureViewsWithAppGroup() {
+        guard let appGroup = appGroup else { return }
+        apps =  appGroup.feed.results
+    }
 }
 
     // MARK: - UICollectionViewDatasource
 
 extension AppsHorizontalController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return apps.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AppRowCell.reuseIdentifier, for: indexPath) as! AppRowCell
+        cell.app = apps[indexPath.item]
         
         return cell
     }

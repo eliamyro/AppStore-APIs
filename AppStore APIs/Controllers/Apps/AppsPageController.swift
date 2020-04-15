@@ -33,7 +33,6 @@ class AppsPageController: BaseListController {
     }
     
     private func fetchData() {
-        print("DEBUG: Fetch JSON data...")
         Service.shared.fetchGames { [weak self] result in
             switch result {
             case .success(let appGroup):

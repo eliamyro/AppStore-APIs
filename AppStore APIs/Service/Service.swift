@@ -38,7 +38,7 @@ class Service {
     }
     
     func fetchGames(completion: @escaping(Result<AppGroup, Error>) -> Void) {
-        let urlString = "https://rss.itunes.apple.com/api/v1/us/ios-apps/top-free/games/50/explicit.json"
+        let urlString = "https://rss.itunes.apple.com/api/v1/us/ios-apps/top-free/all/50/explicit.json"
         guard let url = URL(string: urlString) else { return }
         
         let task = URLSession.shared.dataTask(with: url) { data, response, error in

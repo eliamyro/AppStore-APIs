@@ -60,5 +60,6 @@ class AppsGroupCell: UICollectionViewCell {
     private func configureGroupViewWithData() {
         guard let appGroup = appGroup else { return }
         titleLabel.text = appGroup.feed.title
+        horizontalController.appGroup = appGroup
     }
 }

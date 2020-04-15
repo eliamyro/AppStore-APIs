@@ -7,12 +7,19 @@
 //
 
 import UIKit
+import SDWebImage
 
 class AppRowCell: UICollectionViewCell {
     
     // MARK: - Properties
     
     static let reuseIdentifier = "AppRowCell"
+    
+    var app: FeedResult? {
+        didSet {
+            configureCellWithFeedResult()
+        }
+    }
     
     // MARK: - Views
     
@@ -72,5 +79,13 @@ class AppRowCell: UICollectionViewCell {
         infoStackView.fillSuperview()
         appIconImageView.anchorHeightWidth(heightConstant: 64, widthConstant: 64)
         getButton.anchorHeightWidth(heightConstant: 32, widthConstant: 80)
+    }
+    
+    private func configureCellWithFeedResult() {
+        guard let app = app else { return }
+        
+        nameLabel.text = app.name
+        companyLabel.text = app.artistName
+        appIconImageView.sd_setImage(with: URL(string: app.artworkUrl))
     }
 }
