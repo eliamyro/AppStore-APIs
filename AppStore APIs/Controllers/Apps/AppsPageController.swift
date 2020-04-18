@@ -12,7 +12,7 @@ class AppsPageController: BaseListController {
     
     // MARK: - Properties
     
-    var appGroup = [AppGroup]()
+    var appGroups = [AppGroup]()
     
     // MARK: - Lifecycle
     
@@ -33,14 +33,63 @@ class AppsPageController: BaseListController {
     }
     
     private func fetchData() {
-        Service.shared.fetchGames { [weak self] result in
+        let dispatchGroup = DispatchGroup()
+        var topFreeGroup: AppGroup?
+        var topGrossingGroup: AppGroup?
+        var newAppsGroup: AppGroup?
+        var fetchError: Error?
+        
+        dispatchGroup.enter()
+        Service.shared.fetchTopFreeGames { result in
+            dispatchGroup.leave()
             switch result {
             case .success(let appGroup):
-                self?.appGroup.append(appGroup)
-                DispatchQueue.main.async { self?.collectionView.reloadData() }
+                topFreeGroup = appGroup
             case .failure(let error):
+                fetchError = error
+            }
+        }
+        
+        dispatchGroup.enter()
+        Service.shared.fetchTopGrossingApps { result in
+            dispatchGroup.leave()
+            switch result {
+            case .success(let appGroup):
+                topGrossingGroup = appGroup
+            case .failure(let error):
+                fetchError = error
+            }
+        }
+        
+        dispatchGroup.enter()
+        Service.shared.fetchNewApps { result in
+            dispatchGroup.leave()
+            switch result {
+            case .success(let appGroup):
+                newAppsGroup = appGroup
+            case .failure(let error):
+                fetchError = error
+            }
+        }
+        
+        dispatchGroup.notify(queue: .main) { [weak self] in
+            if let group = topFreeGroup {
+                self?.appGroups.append(group)
+            }
+            
+            if let group = topGrossingGroup {
+                self?.appGroups.append(group)
+            }
+            
+            if let group = newAppsGroup {
+                self?.appGroups.append(group)
+            }
+            
+            if let error = fetchError {
                 self?.showAlertOnMainThread(title: Text.error, message: error.localizedDescription, actionTitle: Text.ok)
             }
+            
+            self?.collectionView.reloadData()
         }
     }
 }
@@ -49,12 +98,12 @@ class AppsPageController: BaseListController {
 
 extension AppsPageController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return appGroup.count
+        return appGroups.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AppsGroupCell.reuseIdentifier, for: indexPath) as! AppsGroupCell
-        cell.appGroup = appGroup[indexPath.item]
+        cell.appGroup = appGroups[indexPath.item]
         return cell
     }
     
