@@ -13,6 +13,17 @@ class AppsPageController: BaseListController {
     // MARK: - Properties
     
     var appGroups = [AppGroup]()
+    var socialApps = [SocialApp]()
+    
+    // MARK: - Views
+    
+    lazy var activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .large)
+        indicator.startAnimating()
+        indicator.hidesWhenStopped = true
+        
+        return indicator
+    }()
     
     // MARK: - Lifecycle
     
@@ -30,6 +41,17 @@ class AppsPageController: BaseListController {
         collectionView.register(AppsGroupCell.self, forCellWithReuseIdentifier: AppsGroupCell.reuseIdentifier)
         collectionView.register(AppsPageHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: AppsPageHeader.reuseIdentifier)
         
+        addViews()
+        anchorViews()
+        
+    }
+    
+    private func addViews() {
+        view.addSubview(activityIndicator)
+    }
+    
+    private func anchorViews() {
+        activityIndicator.anchorCenterToView(view: view)
     }
     
     private func fetchData() {
@@ -38,6 +60,15 @@ class AppsPageController: BaseListController {
         var topGrossingGroup: AppGroup?
         var newAppsGroup: AppGroup?
         var fetchError: Error?
+        
+        Service.shared.fetchSocialApps { result in
+            switch result {
+            case .success(let socialApps):
+                self.socialApps = socialApps
+            case .failure(let error):
+                print(error)
+            }
+        }
         
         dispatchGroup.enter()
         Service.shared.fetchTopFreeGames { result in
@@ -73,6 +104,8 @@ class AppsPageController: BaseListController {
         }
         
         dispatchGroup.notify(queue: .main) { [weak self] in
+            self?.activityIndicator.stopAnimating()
+            
             if let group = topFreeGroup {
                 self?.appGroups.append(group)
             }
@@ -108,7 +141,8 @@ extension AppsPageController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: AppsPageHeader.reuseIdentifier, for: indexPath)
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: AppsPageHeader.reuseIdentifier, for: indexPath) as! AppsPageHeader
+        header.socialApps = socialApps
         
         return header
     }

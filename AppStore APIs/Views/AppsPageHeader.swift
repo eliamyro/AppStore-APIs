@@ -16,6 +16,13 @@ class AppsPageHeader: UICollectionReusableView {
     
     lazy var appHeadereHorizontalController = AppsHeaderHorizontalController()
     
+    var socialApps: [SocialApp]? {
+        didSet {
+            guard let socialApps = socialApps else { return }
+            appHeadereHorizontalController.socialApps = socialApps
+        }
+    }
+    
     // MARK: - Lifecycle
     
     override init(frame: CGRect) {

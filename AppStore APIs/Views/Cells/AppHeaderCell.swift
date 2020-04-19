@@ -7,12 +7,19 @@
 //
 
 import UIKit
+import SDWebImage
 
 class AppsHeaderCell: UICollectionViewCell {
     
     // MARK: - Properties
     
     static let reuseIdentifier = "AppsHeaderCell"
+    
+    var socialApp: SocialApp? {
+        didSet {
+            configureViewsWithSocialApp()
+        }
+    }
     
     // MARK: - Views
     
@@ -30,12 +37,7 @@ class AppsHeaderCell: UICollectionViewCell {
         return label
     }()
     
-    lazy var appIconImageView: UIImageView = {
-        let imageView = UIImageView(cornerRadius: 8)
-        imageView.backgroundColor = .red
-        
-        return imageView
-    }()
+    lazy var appIconImageView = UIImageView(cornerRadius: 8)
     
     lazy var appInfoStackView = VerticalStackView(arrangedSubviews: [companyLabel, descriptionLabel, appIconImageView], spacing: 12)
     
@@ -64,5 +66,13 @@ class AppsHeaderCell: UICollectionViewCell {
     
     private func anchorViews() {
         appInfoStackView.fillSuperview(padding: .init(top: 16, left: 0, bottom: 0, right: 0))
+    }
+    
+    private func configureViewsWithSocialApp() {
+        guard let socialApp = socialApp else { return }
+        
+        companyLabel.text = socialApp.name
+        descriptionLabel.text = socialApp.tagline
+        appIconImageView.sd_setImage(with: URL(string: socialApp.imageUrl))
     }
 }

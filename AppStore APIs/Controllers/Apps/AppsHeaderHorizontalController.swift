@@ -10,6 +10,17 @@ import UIKit
 
 class AppsHeaderHorizontalController: BaseListController {
     
+    // MARK: - Properties
+    var socials = [SocialApp]()
+    
+    var socialApps: [SocialApp]? {
+        didSet {
+            guard let socialApps = socialApps else { return }
+            socials = socialApps
+            collectionView.reloadData()
+        }
+    }
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -33,11 +44,13 @@ class AppsHeaderHorizontalController: BaseListController {
 // MARK: - UICollectionViewDatasource
 extension AppsHeaderHorizontalController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        
+        return socials.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AppsHeaderCell.reuseIdentifier, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AppsHeaderCell.reuseIdentifier, for: indexPath) as! AppsHeaderCell
+        cell.socialApp = socials[indexPath.item]
         
         return cell
     }

@@ -31,6 +31,7 @@
 		815D0C042445C813002F137B /* AppsPageHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815D0C032445C813002F137B /* AppsPageHeader.swift */; };
 		815D0C062445CAB7002F137B /* AppsHeaderHorizontalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815D0C052445CAB7002F137B /* AppsHeaderHorizontalController.swift */; };
 		815D0C082445CD66002F137B /* AppHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815D0C072445CD66002F137B /* AppHeaderCell.swift */; };
+		81865FC5244C770C00492118 /* SocialApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81865FC4244C770C00492118 /* SocialApp.swift */; };
 		81BD00FE243CC5D700CA76FD /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BD00FD243CC5D700CA76FD /* SearchResultCell.swift */; };
 		81CF430424432F0900ECA865 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81CF430324432F0900ECA865 /* Service.swift */; };
 		81CF43062443317A00ECA865 /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81CF43052443317A00ECA865 /* UIViewController+Ext.swift */; };
@@ -67,6 +68,7 @@
 		815D0C032445C813002F137B /* AppsPageHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsPageHeader.swift; sourceTree = "<group>"; };
 		815D0C052445CAB7002F137B /* AppsHeaderHorizontalController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsHeaderHorizontalController.swift; sourceTree = "<group>"; };
 		815D0C072445CD66002F137B /* AppHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppHeaderCell.swift; sourceTree = "<group>"; };
+		81865FC4244C770C00492118 /* SocialApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialApp.swift; sourceTree = "<group>"; };
 		81BD00FD243CC5D700CA76FD /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 		81CF430324432F0900ECA865 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		81CF43052443317A00ECA865 /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
@@ -193,6 +195,7 @@
 			children = (
 				81563370243E4A37008F0CB4 /* SearchResult.swift */,
 				810B0F0D24460DC400B455C2 /* AppGroup.swift */,
+				81865FC4244C770C00492118 /* SocialApp.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -366,6 +369,7 @@
 				815D0C042445C813002F137B /* AppsPageHeader.swift in Sources */,
 				814E4B35244484610068F3F3 /* AppsPageController.swift in Sources */,
 				810B0F0E24460DC400B455C2 /* AppGroup.swift in Sources */,
+				81865FC5244C770C00492118 /* SocialApp.swift in Sources */,
 				8156336E243E3E3F008F0CB4 /* HorizontalStackView.swift in Sources */,
 				814E4B3E24448E270068F3F3 /* AppsHorizontalController.swift in Sources */,
 				811F675A2445B0F5005D1A29 /* UIButton+Ext.swift in Sources */,
