@@ -60,7 +60,7 @@ class AppsSearchController: BaseListController {
         Service.shared.fetchApps(searchTerm: searhTerm) { [weak self] result in
             switch result {
             case .success(let searchResults):
-                self?.appResults = searchResults
+                self?.appResults = searchResults.results
                 DispatchQueue.main.async { self?.collectionView.reloadData() }
             case .failure(let error):
                 self?.showAlertOnMainThread(title: Text.error, message: error.localizedDescription, actionTitle: Text.ok)
