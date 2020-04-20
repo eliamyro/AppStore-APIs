@@ -137,6 +137,12 @@ extension AppsPageController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AppsGroupCell.reuseIdentifier, for: indexPath) as! AppsGroupCell
         cell.appGroup = appGroups[indexPath.item]
+        cell.horizontalController.didSelectHandler = { [weak self] app in
+            let appDetailController = AppDetailController()
+            appDetailController.app = app
+            self?.navigationController?.pushViewController(appDetailController, animated: true)
+        }
+        
         return cell
     }
     

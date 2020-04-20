@@ -20,6 +20,8 @@ class AppsHorizontalController: HorizontalSnappingController {
     
     var apps = [FeedResult]()
     
+    var didSelectHandler: ((FeedResult) -> ())?
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -42,7 +44,7 @@ class AppsHorizontalController: HorizontalSnappingController {
     }
 }
 
-    // MARK: - UICollectionViewDatasource
+    // MARK: - UICollectionViewDatasource - UICollectionViewDelegate
 
 extension AppsHorizontalController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -54,6 +56,11 @@ extension AppsHorizontalController {
         cell.app = apps[indexPath.item]
         
         return cell
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let app = apps[indexPath.item]
+        didSelectHandler?(app)
     }
 }
 
