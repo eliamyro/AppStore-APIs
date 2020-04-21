@@ -18,12 +18,13 @@ struct Feed: Decodable {
 }
 
 struct FeedResult: Decodable {
+    let id: String
     let name: String
     let artistName: String
     let artworkUrl: String
     
     enum CodingKeys: String, CodingKey {
-        case name, artistName
+        case id, name, artistName
         case artworkUrl = "artworkUrl100"
     }
 }

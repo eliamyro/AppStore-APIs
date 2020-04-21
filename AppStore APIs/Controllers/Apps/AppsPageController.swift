@@ -139,7 +139,7 @@ extension AppsPageController {
         cell.appGroup = appGroups[indexPath.item]
         cell.horizontalController.didSelectHandler = { [weak self] app in
             let appDetailController = AppDetailController()
-            appDetailController.app = app
+            appDetailController.appId = app.id
             self?.navigationController?.pushViewController(appDetailController, animated: true)
         }
         

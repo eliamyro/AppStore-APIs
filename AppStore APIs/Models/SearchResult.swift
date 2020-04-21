@@ -19,9 +19,12 @@ struct SearchResult: Decodable {
     let averageUserRating: Float?
     let artworkUrl: String
     let screenshotUrls: [String]
+    let formattedPrice: String
+    let releaseNotes: String
+    let description: String
     
     enum CodingKeys: String, CodingKey {
-        case trackName, primaryGenreName, averageUserRating, screenshotUrls
+        case trackName, primaryGenreName, averageUserRating, screenshotUrls, formattedPrice, releaseNotes, description
         case artworkUrl = "artworkUrl100"
     }
 }
