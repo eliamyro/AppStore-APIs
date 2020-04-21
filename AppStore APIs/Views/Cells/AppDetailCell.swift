@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class AppDetailCell: UICollectionViewCell {
     
@@ -14,20 +15,24 @@ class AppDetailCell: UICollectionViewCell {
     
     static let reuseIdentifier = "AppDetailCell"
     
+    var app: SearchResult? {
+        didSet {
+            configureViewsWithSearchResult()
+        }
+    }
+    
     // MARK: - Views
     
     lazy var appIconImageView: UIImageView = {
         let imageView = UIImageView(cornerRadius: 16)
-        imageView.backgroundColor = .blue
         
         return imageView
     }()
     
-    lazy var nameLabel = UILabel(text: "App Name", font: .boldSystemFont(ofSize: 24), numberOfLines: 2)
+    lazy var nameLabel = UILabel(text: "", font: .boldSystemFont(ofSize: 24), numberOfLines: 2)
     
     lazy var priceButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("4.99$", for: .normal)
         button.backgroundColor = #colorLiteral(red: 0.2009405196, green: 0.4603905082, blue: 0.9551178813, alpha: 1)
         button.titleLabel?.font = .boldSystemFont(ofSize: 16)
         button.setTitleColor(.white, for: .normal)
@@ -38,14 +43,14 @@ class AppDetailCell: UICollectionViewCell {
     
     lazy var whatsNewLabel = UILabel(text: "What's New", font: .boldSystemFont(ofSize: 20))
     
-    lazy var releaseNotesLabel = UILabel(text: "Release Notes", font: .systemFont(ofSize: 16), numberOfLines: 0)
+    lazy var releaseNotesLabel = UILabel(text: "Release Notes", font: .systemFont(ofSize: 18), numberOfLines: 0)
     
     lazy var mainStackView = VerticalStackView(arrangedSubviews: [iconInfoStackView, whatsNewLabel, releaseNotesLabel], spacing: 16)
     
     lazy var iconInfoStackView = HorizontalStackView(arrangedSubviews: [appIconImageView, infoStackView], spacing: 16)
     
     lazy var infoStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [nameLabel, UIView(), priceButton])
+        let stackView = UIStackView(arrangedSubviews: [nameLabel, priceButton, UIView()])
         stackView.axis = .vertical
         stackView.alignment = .leading
         stackView.spacing = 12
@@ -67,7 +72,7 @@ class AppDetailCell: UICollectionViewCell {
     // MARK: - Helpers
     
     private func configure() {
-        backgroundColor = .red
+        backgroundColor = .white
         
         addViews()
         anchorViews()
@@ -82,5 +87,13 @@ class AppDetailCell: UICollectionViewCell {
         
         appIconImageView.anchorHeightWidth(heightConstant: 120, widthConstant: 120)
         priceButton.anchorHeightWidth(heightConstant: 32, widthConstant: 80)
+    }
+    
+    private func configureViewsWithSearchResult() {
+        guard let app = app else { return }
+        nameLabel.text = app.trackName
+        appIconImageView.sd_setImage(with: URL(string: app.artworkUrl))
+        priceButton.setTitle(app.formattedPrice, for: .normal)
+        releaseNotesLabel.text = app.releaseNotes
     }
 }

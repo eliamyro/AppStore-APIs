@@ -25,6 +25,6 @@ struct SearchResult: Decodable {
     
     enum CodingKeys: String, CodingKey {
         case trackName, primaryGenreName, averageUserRating, screenshotUrls, formattedPrice, releaseNotes, description
-        case artworkUrl = "artworkUrl100"
+        case artworkUrl = "artworkUrl512"
     }
 }

@@ -25,7 +25,7 @@ class AppsHeaderCell: UICollectionViewCell {
     
     lazy var companyLabel: UILabel = {
         let label = UILabel(text: "Facebook", font: .boldSystemFont(ofSize: 14))
-        label.textColor = .blue
+        label.textColor = #colorLiteral(red: 0.1137254902, green: 0.631372549, blue: 0.9490196078, alpha: 1)
         
         return label
     }()
