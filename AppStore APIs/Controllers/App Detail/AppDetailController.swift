@@ -34,6 +34,7 @@ class AppDetailController: BaseListController {
         navigationItem.largeTitleDisplayMode = .never
         collectionView.backgroundColor = .white
         collectionView.register(AppDetailCell.self, forCellWithReuseIdentifier: AppDetailCell.reuseIdentifier)
+        collectionView.register(PreviewCell.self, forCellWithReuseIdentifier: PreviewCell.reuseIdentifier)
     }
     
     private func fetchAppDetails() {
@@ -55,25 +56,37 @@ class AppDetailController: BaseListController {
 
 extension AppDetailController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AppDetailCell.reuseIdentifier, for: indexPath) as! AppDetailCell
-        cell.app = app
         
-        return cell
+        if indexPath.item == 0 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AppDetailCell.reuseIdentifier, for: indexPath) as! AppDetailCell
+            cell.app = app
+            
+            return cell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PreviewCell.reuseIdentifier, for: indexPath) as! PreviewCell
+            cell.app = app
+            
+            return cell
+        }
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return 2
     }
 }
 
 extension AppDetailController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let tempCell = AppDetailCell(frame: .init(x: 0, y: 0, width: view.frame.width, height: 800))
-        tempCell.app = app
-        tempCell.layoutIfNeeded()
-        let estimatedSize = tempCell.systemLayoutSizeFitting(.init(width: view.frame.width, height: 800))
-        
-        return .init(width: view.frame.width, height: estimatedSize.height)
+        if indexPath.item == 0 {
+            let tempCell = AppDetailCell(frame: .init(x: 0, y: 0, width: view.frame.width, height: 800))
+            tempCell.app = app
+            tempCell.layoutIfNeeded()
+            let estimatedSize = tempCell.systemLayoutSizeFitting(.init(width: view.frame.width, height: 800))
+            
+            return .init(width: view.frame.width, height: estimatedSize.height)
+        } else {
+            return .init(width: view.frame.width, height: 500)
+        }
     }
 }

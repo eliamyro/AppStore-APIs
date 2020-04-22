@@ -71,6 +71,16 @@ class AppRowCell: UICollectionViewCell {
         anchorViews()
     }
     
+    private func configureCellWithFeedResult() {
+        guard let app = app else { return }
+        
+        nameLabel.text = app.name
+        companyLabel.text = app.artistName
+        appIconImageView.sd_setImage(with: URL(string: app.artworkUrl))
+    }
+    
+    // MARK: - Constraints
+    
     private func addViews() {
         addSubview(infoStackView)
     }
@@ -79,13 +89,5 @@ class AppRowCell: UICollectionViewCell {
         infoStackView.fillSuperview()
         appIconImageView.anchorHeightWidth(heightConstant: 64, widthConstant: 64)
         getButton.anchorHeightWidth(heightConstant: 32, widthConstant: 80)
-    }
-    
-    private func configureCellWithFeedResult() {
-        guard let app = app else { return }
-        
-        nameLabel.text = app.name
-        companyLabel.text = app.artistName
-        appIconImageView.sd_setImage(with: URL(string: app.artworkUrl))
     }
 }

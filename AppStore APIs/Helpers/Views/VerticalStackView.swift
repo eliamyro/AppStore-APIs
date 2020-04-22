@@ -10,6 +10,8 @@ import UIKit
 
 class VerticalStackView: UIStackView {
     
+    // MARK: - Lifecycle
+    
     init(arrangedSubviews: [UIView], spacing: CGFloat = 0) {
         super.init(frame: .zero)
         

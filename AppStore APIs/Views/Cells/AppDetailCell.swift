@@ -78,6 +78,16 @@ class AppDetailCell: UICollectionViewCell {
         anchorViews()
     }
     
+    private func configureViewsWithSearchResult() {
+        guard let app = app else { return }
+        nameLabel.text = app.trackName
+        appIconImageView.sd_setImage(with: URL(string: app.artworkUrl))
+        priceButton.setTitle(app.formattedPrice, for: .normal)
+        releaseNotesLabel.text = app.releaseNotes
+    }
+    
+    // MARK: - Constraints
+    
     private func addViews() {
         addSubview(mainStackView)
     }
@@ -87,13 +97,5 @@ class AppDetailCell: UICollectionViewCell {
         
         appIconImageView.anchorHeightWidth(heightConstant: 120, widthConstant: 120)
         priceButton.anchorHeightWidth(heightConstant: 32, widthConstant: 80)
-    }
-    
-    private func configureViewsWithSearchResult() {
-        guard let app = app else { return }
-        nameLabel.text = app.trackName
-        appIconImageView.sd_setImage(with: URL(string: app.artworkUrl))
-        priceButton.setTitle(app.formattedPrice, for: .normal)
-        releaseNotesLabel.text = app.releaseNotes
     }
 }

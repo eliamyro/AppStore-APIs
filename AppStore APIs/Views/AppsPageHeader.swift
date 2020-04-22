@@ -44,6 +44,8 @@ class AppsPageHeader: UICollectionReusableView {
         anchorViews()
     }
     
+    // MARK: - Constraints
+    
     private func addViews() {
         addSubview(appHeadereHorizontalController.view)
     }

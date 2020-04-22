@@ -10,6 +10,8 @@ import UIKit
 
 class HorizontalStackView: UIStackView {
     
+    // MARK: - Lifecycle
+    
     init(arrangedSubviews: [UIView], distribution: Distribution = .fill, alignment: Alignment = .fill, spacing: CGFloat = 0) {
         super.init(frame: .zero)
         

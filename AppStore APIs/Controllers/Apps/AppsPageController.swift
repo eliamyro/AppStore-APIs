@@ -46,14 +46,6 @@ class AppsPageController: BaseListController {
         
     }
     
-    private func addViews() {
-        view.addSubview(activityIndicator)
-    }
-    
-    private func anchorViews() {
-        activityIndicator.anchorCenterToView(view: view)
-    }
-    
     private func fetchData() {
         let dispatchGroup = DispatchGroup()
         var topFreeGroup: AppGroup?
@@ -124,6 +116,16 @@ class AppsPageController: BaseListController {
             
             self?.collectionView.reloadData()
         }
+    }
+    
+    // MARK: - Constraints
+    
+    private func addViews() {
+        view.addSubview(activityIndicator)
+    }
+    
+    private func anchorViews() {
+        activityIndicator.anchorCenterToView(view: view)
     }
 }
 

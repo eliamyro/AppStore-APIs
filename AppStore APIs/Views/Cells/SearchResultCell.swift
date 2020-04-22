@@ -62,7 +62,6 @@ class SearchResultCell: UICollectionViewCell {
     
     lazy var overalStackView = VerticalStackView(arrangedSubviews: [infoTopStackView, screeshotsStackView], spacing: 16)
     
-    
     // MARK: - Lifecycle
     
     override init(frame: CGRect) {
@@ -80,16 +79,6 @@ class SearchResultCell: UICollectionViewCell {
     private func configure() {
         addViews()
         anchorViews()
-    }
-    
-    private func addViews() {
-        addSubview(overalStackView)
-    }
-    
-    private func anchorViews() {
-        overalStackView.fillSuperview(padding: .init(top: 16, left: 16, bottom: 16, right: 16))
-        appIconImageView.anchorHeightWidth(heightConstant: 64, widthConstant: 64)
-        getButton.anchorHeightWidth(heightConstant: 32, widthConstant: 80)
     }
     
     private func createScreenshotImageView() -> UIImageView {
@@ -122,5 +111,17 @@ class SearchResultCell: UICollectionViewCell {
         if appResult.screenshotUrls.count > 2 {
             screenshot3ImageView.sd_setImage(with: URL(string: appResult.screenshotUrls[2]))
         }
+    }
+    
+    // MARK: - Constraints
+    
+    private func addViews() {
+        addSubview(overalStackView)
+    }
+    
+    private func anchorViews() {
+        overalStackView.fillSuperview(padding: .init(top: 16, left: 16, bottom: 16, right: 16))
+        appIconImageView.anchorHeightWidth(heightConstant: 64, widthConstant: 64)
+        getButton.anchorHeightWidth(heightConstant: 32, widthConstant: 80)
     }
 }

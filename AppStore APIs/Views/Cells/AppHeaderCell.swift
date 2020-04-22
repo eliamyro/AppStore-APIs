@@ -60,19 +60,21 @@ class AppsHeaderCell: UICollectionViewCell {
         anchorViews()
     }
     
-    private func addViews() {
-        addSubview(appInfoStackView)
-    }
-    
-    private func anchorViews() {
-        appInfoStackView.fillSuperview(padding: .init(top: 16, left: 0, bottom: 0, right: 0))
-    }
-    
     private func configureViewsWithSocialApp() {
         guard let socialApp = socialApp else { return }
         
         companyLabel.text = socialApp.name
         descriptionLabel.text = socialApp.tagline
         appIconImageView.sd_setImage(with: URL(string: socialApp.imageUrl))
+    }
+    
+    // MARK: - Constraints
+    
+    private func addViews() {
+        addSubview(appInfoStackView)
+    }
+    
+    private func anchorViews() {
+        appInfoStackView.fillSuperview(padding: .init(top: 16, left: 0, bottom: 0, right: 0))
     }
 }
