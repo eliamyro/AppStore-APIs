@@ -3,6 +3,7 @@ An AppStore clone application using various JSON APIs coming directly from Apple
 
 <strong>Technologies used:</strong><br><br>
 • No storyboards<br>
+• MVVM<br>
 • Decodable<br>
 • Cocoapods<br>
 • Nested UICollectionViews<br>
