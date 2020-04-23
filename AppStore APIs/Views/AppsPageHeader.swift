@@ -14,12 +14,12 @@ class AppsPageHeader: UICollectionReusableView {
     
     static let reuseIdentifier = "AppsPageHeader"
     
-    lazy var appHeadereHorizontalController = AppsHeaderHorizontalController()
+    lazy var appHeadereHorizontalController = AppsHeaderHorizontalController(viewModel: AppsHeaderHorizontalViewModel())
     
     var socialApps: [SocialApp]? {
         didSet {
             guard let socialApps = socialApps else { return }
-            appHeadereHorizontalController.socialApps = socialApps
+            appHeadereHorizontalController.viewModel.socialApps = socialApps
         }
     }
     

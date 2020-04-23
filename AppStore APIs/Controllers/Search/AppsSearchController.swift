@@ -12,9 +12,7 @@ class AppsSearchController: BaseListController {
     
     // MARK: - Properties
     
-    private var appResults = [SearchResult]()
-    
-    private var timer: Timer?
+    let viewModel: AppSearchViewModel
     
     // MARK: - Views
     
@@ -36,6 +34,15 @@ class AppsSearchController: BaseListController {
     
     // MARK: - Lifecycle
     
+    init(viewModel: AppSearchViewModel) {
+        self.viewModel = viewModel
+        super.init()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -45,6 +52,8 @@ class AppsSearchController: BaseListController {
     // MARK: - Helpers
     
     private func configure() {
+        viewModel.delegate = self
+        
         navigationItem.searchController = appsSearchController
         navigationItem.hidesSearchBarWhenScrolling = false
         
@@ -55,17 +64,17 @@ class AppsSearchController: BaseListController {
         enterSearchTermLabel.anchorCenterXToView(view: collectionView)
         enterSearchTermLabel.anchor(top: collectionView.topAnchor, margin: .init(top: 100, left: 0, bottom: 0, right: 0))
     }
+}
+
+// MARK: - AppsSearchViewModel
+
+extension AppsSearchController: AppSearchViewModelDelegate {
+    func iTunesAppsFetchSuccessful() {
+        DispatchQueue.main.async { self.collectionView.reloadData() }
+    }
     
-    private func fetchITunesApps(searhTerm: String) {
-        Service.shared.fetchApps(searchTerm: searhTerm) { [weak self] result in
-            switch result {
-            case .success(let searchResults):
-                self?.appResults = searchResults.results
-                DispatchQueue.main.async { self?.collectionView.reloadData() }
-            case .failure(let error):
-                self?.showAlertOnMainThread(title: Text.error, message: error.localizedDescription, actionTitle: Text.ok)
-            }
-        }
+    func iTunesAppsFetchFailed(error: Error) {
+        showAlertOnMainThread(title: Text.error, message: error.localizedDescription, actionTitle: Text.ok)
     }
 }
 
@@ -73,13 +82,13 @@ class AppsSearchController: BaseListController {
 
 extension AppsSearchController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        enterSearchTermLabel.isHidden = appResults.count != 0
-        return appResults.count
+        enterSearchTermLabel.isHidden = viewModel.appResults.count != 0
+        return viewModel.appResults.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchResultCell.reuseIdentifier, for: indexPath) as! SearchResultCell
-        cell.appResult = appResults[indexPath.item]
+        cell.appResult = viewModel.appResults[indexPath.item]
         
         return cell
     }
@@ -98,10 +107,6 @@ extension AppsSearchController: UICollectionViewDelegateFlowLayout {
 
 extension AppsSearchController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
-        timer?.invalidate()
-        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { _ in
-            self.fetchITunesApps(searhTerm: searchText)
-        })
+        viewModel.textDidChange(searchText: searchText)
     }
 }

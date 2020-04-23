@@ -14,7 +14,7 @@ class PreviewCell: UICollectionViewCell {
     
     static let reuseIdentifier = "PreviewCell"
     
-    let screenshotsController = PreviewScreenshotsController()
+    let screenshotsController = PreviewScreenshotsController(viewModel: PreviewScreenshotsViewModel())
     
     var app: SearchResult? {
         didSet {
@@ -52,7 +52,7 @@ class PreviewCell: UICollectionViewCell {
     
     private func configureWithSearchResult() {
         guard let app = app else { return }
-        screenshotsController.app = app
+        screenshotsController.viewModel.app = app
     }
     
     // MARK: - Constraints

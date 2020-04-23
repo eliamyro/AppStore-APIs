@@ -24,7 +24,7 @@ class AppsGroupCell: UICollectionViewCell {
     
     lazy var titleLabel = UILabel(text: "APP SECTION", font: .boldSystemFont(ofSize: 26))
     
-    lazy var horizontalController = AppsHorizontalController()
+    lazy var horizontalController = AppsHorizontalController(viewModel: AppsHorizontalViewModel())
     
     // MARK: - Lifecycle
     
@@ -50,7 +50,7 @@ class AppsGroupCell: UICollectionViewCell {
     private func configureGroupViewWithData() {
         guard let appGroup = appGroup else { return }
         titleLabel.text = appGroup.feed.title
-        horizontalController.appGroup = appGroup
+        horizontalController.viewModel.appGroup = appGroup
     }
     
     // MARK: - Constraints

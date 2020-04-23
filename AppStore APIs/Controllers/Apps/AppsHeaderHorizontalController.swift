@@ -11,17 +11,18 @@ import UIKit
 class AppsHeaderHorizontalController: HorizontalSnappingController {
     
     // MARK: - Properties
-    var socials = [SocialApp]()
-    
-    var socialApps: [SocialApp]? {
-        didSet {
-            guard let socialApps = socialApps else { return }
-            socials = socialApps
-            collectionView.reloadData()
-        }
-    }
+    let viewModel: AppsHeaderHorizontalViewModel
     
     // MARK: - Lifecycle
+    
+    init(viewModel: AppsHeaderHorizontalViewModel) {
+        self.viewModel = viewModel
+        super.init()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,9 +33,19 @@ class AppsHeaderHorizontalController: HorizontalSnappingController {
     // MARK: - Helpers
     
     private func configure() {
+        viewModel.delegate = self
+        
         collectionView.backgroundColor = .white
         collectionView.register(AppsHeaderCell.self, forCellWithReuseIdentifier: AppsHeaderCell.reuseIdentifier)
         collectionView.contentInset = .init(top: 0, left: 16, bottom: 0, right: 16)
+    }
+}
+
+// MARK: - AppsHeadereHorizontalViewModelDelegate
+
+extension AppsHeaderHorizontalController: AppsHeadereHorizontalViewModelDelegate {
+    func reloadCollectionView() {
+        collectionView.reloadData()
     }
 }
 
@@ -42,12 +53,12 @@ class AppsHeaderHorizontalController: HorizontalSnappingController {
 extension AppsHeaderHorizontalController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return socials.count
+        return viewModel.socials.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AppsHeaderCell.reuseIdentifier, for: indexPath) as! AppsHeaderCell
-        cell.socialApp = socials[indexPath.item]
+        cell.socialApp = viewModel.socials[indexPath.item]
         
         return cell
     }
