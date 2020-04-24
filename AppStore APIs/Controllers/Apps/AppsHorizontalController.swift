@@ -81,3 +81,20 @@ extension AppsHorizontalController: UICollectionViewDelegateFlowLayout {
         return 10
     }
 }
+
+import SwiftUI
+
+struct AppsHorizontalControllerPreview: PreviewProvider {
+    static var previews: some View {
+        let viewModel = AppsHorizontalViewModel()
+        viewModel.apps = [FeedResult(id: "1", name: "Facebook", artistName: "Facebook", artworkUrl: ""),
+        FeedResult(id: "1", name: "Facebook", artistName: "Facebook", artworkUrl: ""),
+        FeedResult(id: "1", name: "Facebook", artistName: "Facebook", artworkUrl: ""),
+        FeedResult(id: "1", name: "Facebook", artistName: "Facebook", artworkUrl: ""),
+        FeedResult(id: "1", name: "Facebook", artistName: "Facebook", artworkUrl: ""),
+        FeedResult(id: "1", name: "Facebook", artistName: "Facebook", artworkUrl: "")]
+        
+        let controller = AppsHorizontalController(viewModel: viewModel)
+        return controller.liveView.previewLayout(.fixed(width: 400, height: 300))
+    }
+}

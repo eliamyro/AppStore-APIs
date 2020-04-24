@@ -25,6 +25,7 @@ class SearchResultCell: UICollectionViewCell {
     
     lazy var appIconImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.backgroundColor = .red
         imageView.layer.cornerRadius = 12
         imageView.clipsToBounds = true
         
@@ -123,5 +124,17 @@ class SearchResultCell: UICollectionViewCell {
         overalStackView.fillSuperview(padding: .init(top: 16, left: 16, bottom: 16, right: 16))
         appIconImageView.anchorHeightWidth(heightConstant: 64, widthConstant: 64)
         getButton.anchorHeightWidth(heightConstant: 32, widthConstant: 80)
+    }
+}
+
+// MARK: - PreviewProvider
+
+import SwiftUI
+
+struct SearchResultCellPreview: PreviewProvider {
+    static var previews: some View {
+        
+        let view = SearchResultCell()
+        return view.liveView.edgesIgnoringSafeArea(.all).previewLayout(.fixed(width: 400, height: 300))
     }
 }

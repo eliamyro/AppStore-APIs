@@ -20,6 +20,8 @@
 		811F67562445AE72005D1A29 /* AppRowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811F67552445AE72005D1A29 /* AppRowCell.swift */; };
 		811F67582445B09D005D1A29 /* UIImageView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811F67572445B09D005D1A29 /* UIImageView+Ext.swift */; };
 		811F675A2445B0F5005D1A29 /* UIButton+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811F67592445B0F5005D1A29 /* UIButton+Ext.swift */; };
+		8130E80E2452E598001F579D /* UIView+LivePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8130E80D2452E598001F579D /* UIView+LivePreview.swift */; };
+		8130E8102452EAD8001F579D /* UIViewController+LivePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8130E80F2452EAD8001F579D /* UIViewController+LivePreview.swift */; };
 		8135D7D12451F9C100458155 /* AppSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8135D7D02451F9C100458155 /* AppSearchViewModel.swift */; };
 		8135D7D32452034A00458155 /* AppsPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8135D7D22452034900458155 /* AppsPageViewModel.swift */; };
 		8135D7D52452082200458155 /* AppsHorizontalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8135D7D42452082200458155 /* AppsHorizontalViewModel.swift */; };
@@ -70,6 +72,8 @@
 		811F67552445AE72005D1A29 /* AppRowCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRowCell.swift; sourceTree = "<group>"; };
 		811F67572445B09D005D1A29 /* UIImageView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Ext.swift"; sourceTree = "<group>"; };
 		811F67592445B0F5005D1A29 /* UIButton+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Ext.swift"; sourceTree = "<group>"; };
+		8130E80D2452E598001F579D /* UIView+LivePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+LivePreview.swift"; sourceTree = "<group>"; };
+		8130E80F2452EAD8001F579D /* UIViewController+LivePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+LivePreview.swift"; sourceTree = "<group>"; };
 		8135D7D02451F9C100458155 /* AppSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSearchViewModel.swift; sourceTree = "<group>"; };
 		8135D7D22452034900458155 /* AppsPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsPageViewModel.swift; sourceTree = "<group>"; };
 		8135D7D42452082200458155 /* AppsHorizontalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsHorizontalViewModel.swift; sourceTree = "<group>"; };
@@ -210,6 +214,8 @@
 				814E4B3B24448AFE0068F3F3 /* UILabel+Ext.swift */,
 				811F67572445B09D005D1A29 /* UIImageView+Ext.swift */,
 				811F67592445B0F5005D1A29 /* UIButton+Ext.swift */,
+				8130E80D2452E598001F579D /* UIView+LivePreview.swift */,
+				8130E80F2452EAD8001F579D /* UIViewController+LivePreview.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -410,6 +416,7 @@
 				8135D7D32452034A00458155 /* AppsPageViewModel.swift in Sources */,
 				813E04362450435700C93775 /* PreviewCell.swift in Sources */,
 				8135D7D724520B2600458155 /* AppsHeaderHorizontalViewModel.swift in Sources */,
+				8130E8102452EAD8001F579D /* UIViewController+LivePreview.swift in Sources */,
 				811F67582445B09D005D1A29 /* UIImageView+Ext.swift in Sources */,
 				814E4B3A2444884F0068F3F3 /* AppsGroupCell.swift in Sources */,
 				811DDC12243B9D6A00AA50AC /* SceneDelegate.swift in Sources */,
@@ -426,6 +433,7 @@
 				8156336C243E3C0B008F0CB4 /* VerticalStackView.swift in Sources */,
 				8135D7DB24520F9900458155 /* PreviewScreenshotsViewModel.swift in Sources */,
 				815D0C042445C813002F137B /* AppsPageHeader.swift in Sources */,
+				8130E80E2452E598001F579D /* UIView+LivePreview.swift in Sources */,
 				814E4B35244484610068F3F3 /* AppsPageController.swift in Sources */,
 				810B0F0E24460DC400B455C2 /* AppGroup.swift in Sources */,
 				81865FC5244C770C00492118 /* SocialApp.swift in Sources */,

@@ -72,3 +72,17 @@ extension PreviewScreenshotsController: UICollectionViewDelegateFlowLayout {
         return .init(width: 250, height: view.frame.height)
     }
 }
+
+// MARK: - PreviewProvider
+
+import SwiftUI
+
+struct PreviewScreenshotsControllerPreview: PreviewProvider {
+    static var previews: some View {
+        let viewModel = PreviewScreenshotsViewModel()
+        viewModel.screenshotsUrls = ["", "", "", ""]
+        
+        let controller = PreviewScreenshotsController(viewModel: viewModel)
+        return controller.liveView.edgesIgnoringSafeArea(.all).previewLayout(.fixed(width: 400, height: 500))
+    }
+}

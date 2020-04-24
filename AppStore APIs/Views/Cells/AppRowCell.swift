@@ -91,3 +91,15 @@ class AppRowCell: UICollectionViewCell {
         getButton.anchorHeightWidth(heightConstant: 32, widthConstant: 80)
     }
 }
+
+// MARK: - PreviewProvider
+
+import SwiftUI
+
+struct AppRowCellPreview: PreviewProvider {
+    static var previews: some View {
+        
+        let view = AppRowCell()
+        return view.liveView.edgesIgnoringSafeArea(.all).previewLayout(.fixed(width: 400, height: 100))
+    }
+}

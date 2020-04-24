@@ -37,7 +37,13 @@ class AppsHeaderCell: UICollectionViewCell {
         return label
     }()
     
-    lazy var appIconImageView = UIImageView(cornerRadius: 8)
+    lazy var appIconImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.backgroundColor = .red
+        imageView.layer.cornerRadius = 8
+        
+        return imageView
+    }()
     
     lazy var appInfoStackView = VerticalStackView(arrangedSubviews: [companyLabel, descriptionLabel, appIconImageView], spacing: 12)
     

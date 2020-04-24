@@ -123,3 +123,34 @@ extension AppsPageController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: view.frame.width, height: 300)
     }
 }
+
+
+// MARK: - PreviewProvider
+
+import SwiftUI
+
+struct AppsPageControllerPreview: PreviewProvider {
+    static var previews: some View {
+        let viewModel = AppsPageViewModel()
+        viewModel.socialApps = [
+            SocialApp(id: "1", name: "Facebook", imageUrl: "", tagline: "Tagline"),
+            SocialApp(id: "1", name: "Facebook", imageUrl: "", tagline: "Tagline")]
+        
+        viewModel.appGroups = [
+            AppGroup(feed:
+                Feed(title: "Section 1", results: [
+                    FeedResult(id: "1", name: "Facebook", artistName: "Facebook", artworkUrl: ""),
+                    FeedResult(id: "1", name: "Facebook", artistName: "Facebook", artworkUrl: ""),
+                    FeedResult(id: "1", name: "Facebook", artistName: "Facebook", artworkUrl: ""),
+                    FeedResult(id: "1", name: "Facebook", artistName: "Facebook", artworkUrl: ""),
+                    FeedResult(id: "1", name: "Facebook", artistName: "Facebook", artworkUrl: ""),
+                    FeedResult(id: "1", name: "Facebook", artistName: "Facebook", artworkUrl: "")])),
+            AppGroup(feed:
+                Feed(title: "Section 2", results: [
+                    FeedResult(id: "1", name: "Facebook", artistName: "Facebook", artworkUrl: "")]))]
+        
+        
+        let controller = AppsPageController(viewModel: viewModel)
+        return controller.liveView.edgesIgnoringSafeArea(.all)
+    }
+}

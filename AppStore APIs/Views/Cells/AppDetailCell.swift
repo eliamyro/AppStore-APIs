@@ -25,7 +25,7 @@ class AppDetailCell: UICollectionViewCell {
     
     lazy var appIconImageView: UIImageView = {
         let imageView = UIImageView(cornerRadius: 16)
-        
+        imageView.backgroundColor = .purple
         return imageView
     }()
     
@@ -97,5 +97,17 @@ class AppDetailCell: UICollectionViewCell {
         
         appIconImageView.anchorHeightWidth(heightConstant: 120, widthConstant: 120)
         priceButton.anchorHeightWidth(heightConstant: 32, widthConstant: 80)
+    }
+}
+
+// MARK: - PreviewProvider
+
+import SwiftUI
+
+struct AppDetailCellPreview: PreviewProvider {
+    static var previews: some View {
+        
+        let view = AppDetailCell()
+        return view.liveView.edgesIgnoringSafeArea(.all).previewLayout(.fixed(width: 400, height: 300))
     }
 }

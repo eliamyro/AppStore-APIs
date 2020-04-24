@@ -72,3 +72,20 @@ extension AppsHeaderHorizontalController: UICollectionViewDelegateFlowLayout {
         return .init(width: view.frame.width - 48, height: view.frame.height)
     }
 }
+
+// MARK: - PreviewProvider
+
+import SwiftUI
+
+struct AppsHeaderHorizontalControllerPreview: PreviewProvider {
+    static var previews: some View {
+        let viewModel = AppsHeaderHorizontalViewModel()
+        viewModel.socials = [
+            SocialApp(id: "1", name: "Facebook", imageUrl: "", tagline: "Tagliine"),
+            SocialApp(id: "2", name: "Instagram", imageUrl: "", tagline: "Tagliine")
+        ]
+        
+        let controller = AppsHeaderHorizontalController(viewModel: viewModel)
+        return controller.liveView.edgesIgnoringSafeArea(.all).previewLayout(.fixed(width: 400, height: 300))
+    }
+}

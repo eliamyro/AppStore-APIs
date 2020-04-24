@@ -14,7 +14,7 @@ class PreviewCell: UICollectionViewCell {
     
     static let reuseIdentifier = "PreviewCell"
     
-    let screenshotsController = PreviewScreenshotsController(viewModel: PreviewScreenshotsViewModel())
+    var screenshotsController = PreviewScreenshotsController(viewModel: PreviewScreenshotsViewModel())
     
     var app: SearchResult? {
         didSet {
