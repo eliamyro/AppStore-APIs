@@ -14,6 +14,13 @@ class ReviewsRowCell: UICollectionViewCell {
     
     static let reuseIdentifier = "ReviewsRowCell"
     
+    var reviews: Reviews? {
+        didSet {
+            guard let reviews = reviews else { return }
+            reviewsController.viewModel.reviews = reviews.feed.entries
+        }
+    }
+    
     let reviewsController = ReviewsController(viewModel: ReviewsViewModel())
     
     // MARK: - Views

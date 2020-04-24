@@ -14,14 +14,28 @@ class ReviewCell: UICollectionViewCell {
     
     static let reuseIdentifier = "ReviewCell"
     
+    var review: Entry? {
+        didSet {
+            configureViewsWithReview()
+        }
+    }
+    
     // MARK: - Views
     
-    lazy var titleLabel = UILabel(text: "Review Title", font: .boldSystemFont(ofSize: 16))
-    lazy var authorLabel = UILabel(text: "Author", font: .systemFont(ofSize: 16))
+    lazy var titleLabel = UILabel(text: "Review Title, Review Title, Review Title, Review Title", font: .boldSystemFont(ofSize: 16))
+    lazy var authorLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Author Author Author"
+        label.font = .systemFont(ofSize: 16)
+        label.textAlignment = .right
+        
+        return label
+    }()
+    
     lazy var starsLabel = UILabel(text: "Stars", font: .systemFont(ofSize: 14))
     lazy var bodyLabel = UILabel(text: "Review Body, Review Body, Review Body\nReview Body, Review Body, Review Body\nReview Body, Review Body, Review Body\nReview Body, Review Body, Review Body\n", font: .systemFont(ofSize: 14), numberOfLines: 0)
     
-    lazy var titleAuthorStackView = HorizontalStackView(arrangedSubviews: [titleLabel, UIView(), authorLabel])
+    lazy var titleAuthorStackView = HorizontalStackView(arrangedSubviews: [titleLabel, authorLabel], spacing: 8)
     lazy var reviewStackView = VerticalStackView(arrangedSubviews: [titleAuthorStackView, starsLabel, bodyLabel], spacing: 8)
     
     // MARK: - Lifecycle
@@ -47,6 +61,13 @@ class ReviewCell: UICollectionViewCell {
         anchorViews()
     }
     
+    private func configureViewsWithReview() {
+        guard let review = review else { return }
+        titleLabel.text = review.title.label
+        authorLabel.text = review.author.name.label
+        bodyLabel.text = review.content.label
+    }
+    
     // MARK: - Constraints
     
     private func addViews() {
@@ -55,6 +76,7 @@ class ReviewCell: UICollectionViewCell {
     
     private func anchorViews() {
         reviewStackView.fillSuperview(padding: .init(top: 16, left: 16, bottom: 16, right: 16))
+        titleLabel.setContentCompressionResistancePriority(.init(0), for: .horizontal)
     }
 }
 

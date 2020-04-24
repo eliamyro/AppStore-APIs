@@ -22,10 +22,12 @@ class AppDetailViewModel {
     weak var delegate: AppDetailViewModelDelegate?
     
     var app: SearchResult?
+    var reviews: Reviews?
     
     var appId: String? {
         didSet {
             fetchAppDetails()
+            fetchReviews()
         }
     }
     
@@ -41,6 +43,21 @@ class AppDetailViewModel {
                 self?.delegate?.fetchSuccessful()
             case .failure(let error):
                 self?.delegate?.fetchFailed(error: error)
+            }
+        }
+    }
+    
+    func fetchReviews() {
+        guard let appId = appId else { return }
+        let urlString = "https://itunes.apple.com/rss/customerreviews/page=1/id=\(appId)/sortby=mostrecent/json?l=en&cc=us"
+        
+        Service.shared.fetchGenericsJSONData(urlString: urlString) { (result: Result<Reviews, Error>) in
+            switch result {
+            case .success(let reviews):
+                self.reviews = reviews
+                self.delegate?.fetchSuccessful()
+            case .failure(let error):
+                self.delegate?.fetchFailed(error: error)
             }
         }
     }

@@ -48,11 +48,12 @@ class ReviewsController: HorizontalSnappingController {
 
 extension ReviewsController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return viewModel.reviews?.count ?? 0
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ReviewCell.reuseIdentifier, for: indexPath) as! ReviewCell
+        cell.review = viewModel.reviews?[indexPath.item]
         
         return cell
     }

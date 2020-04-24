@@ -1,5 +1,5 @@
 //
-//  AppHeaderCell.swift
+//  AppsHeaderCell.swift
 //  AppStore APIs
 //
 //  Created by Elias Myronidis on 14/4/20.

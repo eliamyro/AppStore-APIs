@@ -74,6 +74,7 @@ extension AppDetailController {
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ReviewsRowCell.reuseIdentifier, for: indexPath) as! ReviewsRowCell
+            cell.reviews = viewModel.reviews
             
             return cell
         }

@@ -10,4 +10,5 @@ import Foundation
 
 class ReviewsViewModel {
     
+    var reviews: [Entry]?
 }
