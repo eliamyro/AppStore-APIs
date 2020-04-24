@@ -41,6 +41,7 @@ class AppDetailController: BaseListController {
         collectionView.backgroundColor = .white
         collectionView.register(AppDetailCell.self, forCellWithReuseIdentifier: AppDetailCell.reuseIdentifier)
         collectionView.register(PreviewCell.self, forCellWithReuseIdentifier: PreviewCell.reuseIdentifier)
+        collectionView.register(ReviewsRowCell.self, forCellWithReuseIdentifier: ReviewsRowCell.reuseIdentifier)
     }
 }
 
@@ -66,16 +67,20 @@ extension AppDetailController {
             cell.app = viewModel.app
             
             return cell
-        } else {
+        } else if indexPath.item == 1{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PreviewCell.reuseIdentifier, for: indexPath) as! PreviewCell
             cell.app = viewModel.app
+            
+            return cell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ReviewsRowCell.reuseIdentifier, for: indexPath) as! ReviewsRowCell
             
             return cell
         }
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        return 3
     }
 }
 
@@ -89,8 +94,10 @@ extension AppDetailController: UICollectionViewDelegateFlowLayout {
             let estimatedSize = tempCell.systemLayoutSizeFitting(.init(width: view.frame.width, height: 800))
             
             return .init(width: view.frame.width, height: estimatedSize.height)
-        } else {
+        } else if indexPath.item == 1 {
             return .init(width: view.frame.width, height: 500)
+        } else {
+            return .init(width: view.frame.width, height: 280)
         }
     }
 }

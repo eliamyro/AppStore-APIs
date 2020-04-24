@@ -40,7 +40,9 @@ class AppsHeaderCell: UICollectionViewCell {
     lazy var appIconImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .red
+        imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 8
+        imageView.clipsToBounds = true
         
         return imageView
     }()
