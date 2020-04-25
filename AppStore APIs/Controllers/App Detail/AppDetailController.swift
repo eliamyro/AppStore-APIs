@@ -109,8 +109,8 @@ import SwiftUI
 
 struct AppsDetailControllerPreview: PreviewProvider {
     static var previews: some View {
-        let viewModel = AppDetailViewModel()
-        viewModel.app = SearchResult(trackName: "Facebook", primaryGenreName: "Social", averageUserRating: 5, artworkUrl: "", screenshotUrls: ["", "", ""], formattedPrice: "3.99$", releaseNotes: "These are the release notes", description: "This is the app's description")
+        let viewModel = AppDetailViewModel(appId: "123456")
+        viewModel.app = SearchResult(trackId: 1, trackName: "Facebook", primaryGenreName: "Social", averageUserRating: 5, artworkUrl: "", screenshotUrls: ["", "", ""], formattedPrice: "3.99$", releaseNotes: "These are the release notes", description: "This is the app's description")
         
         
         let controller = AppDetailController(viewModel: viewModel)

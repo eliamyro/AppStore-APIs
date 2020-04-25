@@ -24,17 +24,20 @@ class AppDetailViewModel {
     var app: SearchResult?
     var reviews: Reviews?
     
-    var appId: String? {
-        didSet {
-            fetchAppDetails()
-            fetchReviews()
-        }
+    let appId: String
+    
+    // MARK: - Lifecycle
+    
+    init(appId: String) {
+        self.appId = appId
+        
+        fetchAppDetails()
+        fetchReviews()
     }
     
     // MARK: - Helpers
     
     func fetchAppDetails() {
-        guard let appId = appId else { return }
         let urlString = "https://itunes.apple.com/lookup?id=\(appId)"
         Service.shared.fetchGenericsJSONData(urlString: urlString) { [weak self] (result: Result<SearchResults, Error>) in
             switch result {
@@ -48,16 +51,14 @@ class AppDetailViewModel {
     }
     
     func fetchReviews() {
-        guard let appId = appId else { return }
         let urlString = "https://itunes.apple.com/rss/customerreviews/page=1/id=\(appId)/sortby=mostrecent/json?l=en&cc=us"
-        
-        Service.shared.fetchGenericsJSONData(urlString: urlString) { (result: Result<Reviews, Error>) in
+        Service.shared.fetchGenericsJSONData(urlString: urlString) { [weak self] (result: Result<Reviews, Error>) in
             switch result {
             case .success(let reviews):
-                self.reviews = reviews
-                self.delegate?.fetchSuccessful()
+                self?.reviews = reviews
+                self?.delegate?.fetchSuccessful()
             case .failure(let error):
-                self.delegate?.fetchFailed(error: error)
+                self?.delegate?.fetchFailed(error: error)
             }
         }
     }

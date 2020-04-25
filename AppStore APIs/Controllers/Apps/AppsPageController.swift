@@ -92,8 +92,7 @@ extension AppsPageController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AppsGroupCell.reuseIdentifier, for: indexPath) as! AppsGroupCell
         cell.appGroup = viewModel.appGroups[indexPath.item]
         cell.horizontalController.didSelectHandler = { [weak self] app in
-            let appDetailController = AppDetailController(viewModel: AppDetailViewModel())
-            appDetailController.viewModel.appId = app.id
+            let appDetailController = AppDetailController(viewModel: AppDetailViewModel(appId: app.id))
             self?.navigationController?.pushViewController(appDetailController, animated: true)
         }
         

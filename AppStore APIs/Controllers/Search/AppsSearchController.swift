@@ -92,6 +92,12 @@ extension AppsSearchController {
         
         return cell
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let appId = "\(viewModel.appResults[indexPath.item].trackId)"
+        let detailController = AppDetailController(viewModel: AppDetailViewModel(appId: appId))
+        navigationController?.pushViewController(detailController, animated: true)
+    }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
@@ -118,9 +124,9 @@ import SwiftUI
 struct AppsSearchControllerPreview: PreviewProvider {
     static var previews: some View {
         let viewModel = AppSearchViewModel()
-        viewModel.appResults = [SearchResult(trackName: "Facebook", primaryGenreName: "Social", averageUserRating: 5, artworkUrl: "", screenshotUrls: ["","","",""], formattedPrice: "3.99$", releaseNotes: "", description: ""),
-        SearchResult(trackName: "Facebook", primaryGenreName: "Social", averageUserRating: 5, artworkUrl: "", screenshotUrls: ["","","",""], formattedPrice: "3.99$", releaseNotes: "", description: ""),
-        SearchResult(trackName: "Facebook", primaryGenreName: "Social", averageUserRating: 5, artworkUrl: "", screenshotUrls: ["","","",""], formattedPrice: "3.99$", releaseNotes: "", description: "")]
+        viewModel.appResults = [SearchResult(trackId: 1, trackName: "Facebook", primaryGenreName: "Social", averageUserRating: 5, artworkUrl: "", screenshotUrls: ["","","",""], formattedPrice: "3.99$", releaseNotes: "", description: ""),
+        SearchResult(trackId: 1, trackName: "Facebook", primaryGenreName: "Social", averageUserRating: 5, artworkUrl: "", screenshotUrls: ["","","",""], formattedPrice: "3.99$", releaseNotes: "", description: ""),
+        SearchResult(trackId: 1, trackName: "Facebook", primaryGenreName: "Social", averageUserRating: 5, artworkUrl: "", screenshotUrls: ["","","",""], formattedPrice: "3.99$", releaseNotes: "", description: "")]
         
         let controller = AppsSearchController(viewModel: viewModel)
         return controller.liveView.edgesIgnoringSafeArea(.all)
