@@ -12,6 +12,7 @@ enum Image {
     static let today = UIImage(named: "today_icon")
     static let apps = UIImage(named: "apps")
     static let search = UIImage(named: "search")
+    static let star = UIImage(systemName: "star.fill")
 }
 
 enum Text {
