@@ -8,7 +8,17 @@
 
 import Foundation
 
+protocol ReviewsViewModelDelegate: class {
+    func reloadCollectionView()
+}
+
 class ReviewsViewModel {
     
-    var reviews: [Entry]?
+    weak var delegate: ReviewsViewModelDelegate?
+    
+    var reviews: [Entry]? {
+        didSet {
+            delegate?.reloadCollectionView()
+        }
+    }
 }

@@ -34,14 +34,20 @@ class ReviewsController: HorizontalSnappingController {
     // MARK: - Helpers
     
     private func configure() {
+        viewModel.delegate = self
+        
         collectionView.backgroundColor = .white
         collectionView.register(ReviewCell.self, forCellWithReuseIdentifier: ReviewCell.reuseIdentifier)
         collectionView.contentInset = .init(top: 0, left: 16, bottom: 0, right: 16)
     }
-    
-    // MARK: - Constraints
-    
-    
+}
+
+// MARK: - ReviewViewModelDelegate
+
+extension ReviewsController: ReviewsViewModelDelegate {
+    func reloadCollectionView() {
+        collectionView.reloadData()
+    }
 }
 
 // MARK: UICollectionViewDatasource - UICollectionViewDelegate
