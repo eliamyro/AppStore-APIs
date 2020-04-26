@@ -13,6 +13,7 @@ enum Image {
     static let apps = UIImage(named: "apps")
     static let search = UIImage(named: "search")
     static let star = UIImage(systemName: "star.fill")
+    static let garden = UIImage(named: "garden")
 }
 
 enum Text {
