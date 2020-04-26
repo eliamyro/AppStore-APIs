@@ -40,6 +40,14 @@ class TodayController: BaseListController {
         collectionView.register(TodayCell.self, forCellWithReuseIdentifier: TodayCell.reuseIdentifier)
         collectionView.contentInset = .init(top: 32, left: 32, bottom: 32, right: 32)
     }
+    
+    @objc private func handleRemoveRedView(gesture: UITapGestureRecognizer) {
+        UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
+            gesture.view?.frame = self.viewModel.startingFrame ?? .zero
+        }, completion: { _ in
+            gesture.view?.removeFromSuperview()
+        })
+    }
 }
 
 // MARK: - UICollectionViewDatasource - UICollectionViewDelegate
@@ -56,7 +64,21 @@ extension TodayController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //TODO: Animate to fullscren
+        let redView = UIView()
+        redView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleRemoveRedView)))
+        redView.backgroundColor = .red
+        view.addSubview(redView)
+        
+        guard let cell = collectionView.cellForItem(at: indexPath) else { return }
+        print(cell.frame)
+        
+        viewModel.startingFrame = cell.superview?.convert(cell.frame, to: nil)
+        redView.frame = viewModel.startingFrame ?? .zero
+        redView.layer.cornerRadius = 16
+        
+        UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
+            redView.frame = self.view.frame
+        }, completion: nil)
     }
 }
 

@@ -6,8 +6,8 @@
 //  Copyright © 2020 Elias Myronidis. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class TodayViewModel {
-    
+    var startingFrame: CGRect?
 }
