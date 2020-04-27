@@ -43,6 +43,8 @@
 		815D0C042445C813002F137B /* AppsPageHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815D0C032445C813002F137B /* AppsPageHeader.swift */; };
 		815D0C062445CAB7002F137B /* AppsHeaderHorizontalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815D0C052445CAB7002F137B /* AppsHeaderHorizontalController.swift */; };
 		815D0C082445CD66002F137B /* AppsHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815D0C072445CD66002F137B /* AppsHeaderCell.swift */; };
+		815D1F582457102500DEF8BE /* AppFullScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815D1F572457102500DEF8BE /* AppFullScreenController.swift */; };
+		815D1F5A245714D600DEF8BE /* AppFullScreenDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815D1F59245714D600DEF8BE /* AppFullScreenDescriptionCell.swift */; };
 		8164E0A7244DAAF5006B0A3C /* HorizontalSnappingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8164E0A6244DAAF5006B0A3C /* HorizontalSnappingController.swift */; };
 		8164E0A9244DB0E4006B0A3C /* SnappingLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8164E0A8244DB0E4006B0A3C /* SnappingLayout.swift */; };
 		81865FC5244C770C00492118 /* SocialApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81865FC4244C770C00492118 /* SocialApp.swift */; };
@@ -103,6 +105,8 @@
 		815D0C032445C813002F137B /* AppsPageHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsPageHeader.swift; sourceTree = "<group>"; };
 		815D0C052445CAB7002F137B /* AppsHeaderHorizontalController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsHeaderHorizontalController.swift; sourceTree = "<group>"; };
 		815D0C072445CD66002F137B /* AppsHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsHeaderCell.swift; sourceTree = "<group>"; };
+		815D1F572457102500DEF8BE /* AppFullScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFullScreenController.swift; sourceTree = "<group>"; };
+		815D1F59245714D600DEF8BE /* AppFullScreenDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFullScreenDescriptionCell.swift; sourceTree = "<group>"; };
 		8164E0A6244DAAF5006B0A3C /* HorizontalSnappingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalSnappingController.swift; sourceTree = "<group>"; };
 		8164E0A8244DB0E4006B0A3C /* SnappingLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnappingLayout.swift; sourceTree = "<group>"; };
 		81865FC4244C770C00492118 /* SocialApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialApp.swift; sourceTree = "<group>"; };
@@ -322,6 +326,7 @@
 			children = (
 				81C536A32455A66500099C5A /* TodayController.swift */,
 				81C536A52455A66D00099C5A /* TodayViewModel.swift */,
+				815D1F572457102500DEF8BE /* AppFullScreenController.swift */,
 			);
 			path = Today;
 			sourceTree = "<group>";
@@ -330,6 +335,7 @@
 			isa = PBXGroup;
 			children = (
 				81C536A82455A9D000099C5A /* TodayCell.swift */,
+				815D1F59245714D600DEF8BE /* AppFullScreenDescriptionCell.swift */,
 			);
 			path = Today;
 			sourceTree = "<group>";
@@ -482,6 +488,7 @@
 				811DDC28243B9E6200AA50AC /* BaseTabBarController.swift in Sources */,
 				811DDC10243B9D6A00AA50AC /* AppDelegate.swift in Sources */,
 				813E04382450463F00C93775 /* PreviewScreenshotsController.swift in Sources */,
+				815D1F5A245714D600DEF8BE /* AppFullScreenDescriptionCell.swift in Sources */,
 				81CF43062443317A00ECA865 /* UIViewController+Ext.swift in Sources */,
 				81A7FC9D245390E6001C77D3 /* Reviews.swift in Sources */,
 				81563371243E4A37008F0CB4 /* SearchResult.swift in Sources */,
@@ -518,6 +525,7 @@
 				81CF9CA52453547200CDB2D5 /* ReviewsController.swift in Sources */,
 				8156336E243E3E3F008F0CB4 /* HorizontalStackView.swift in Sources */,
 				81CF9CA7245354AC00CDB2D5 /* ReviewsViewModel.swift in Sources */,
+				815D1F582457102500DEF8BE /* AppFullScreenController.swift in Sources */,
 				814E4B3E24448E270068F3F3 /* AppsHorizontalController.swift in Sources */,
 				811F675A2445B0F5005D1A29 /* UIButton+Ext.swift in Sources */,
 				814E4B372444851D0068F3F3 /* BaseListController.swift in Sources */,

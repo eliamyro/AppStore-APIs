@@ -31,12 +31,14 @@ class AppsPageViewModel {
         var newAppsGroup: AppGroup?
         var fetchError: Error?
         
+        dispatchGroup.enter()
         Service.shared.fetchSocialApps { result in
+            dispatchGroup.leave()
             switch result {
             case .success(let socialApps):
                 self.socialApps = socialApps
             case .failure(let error):
-                print(error)
+                fetchError = error
             }
         }
         

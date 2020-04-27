@@ -13,6 +13,7 @@ class TodayController: BaseListController {
     // MARK: - Properties
     
     let viewModel: TodayViewModel
+    var appFullScreeController: AppFullScreenController?
     
     // MARK: - Lifecycle
     
@@ -44,8 +45,13 @@ class TodayController: BaseListController {
     @objc private func handleRemoveRedView(gesture: UITapGestureRecognizer) {
         UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
             gesture.view?.frame = self.viewModel.startingFrame ?? .zero
+            if let tabBarFrame = self.tabBarController?.tabBar.frame {
+                self.tabBarController?.tabBar.frame.origin.y = self.view.frame.size.height - tabBarFrame.height
+            }
+            
         }, completion: { _ in
             gesture.view?.removeFromSuperview()
+            self.appFullScreeController?.removeFromParent()
         })
     }
 }
@@ -64,20 +70,23 @@ extension TodayController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let redView = UIView()
-        redView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleRemoveRedView)))
-        redView.backgroundColor = .red
-        view.addSubview(redView)
+        
+        let fullScreenController = AppFullScreenController(style: .grouped)
+        guard let cardView = fullScreenController.view else { return }
+        cardView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleRemoveRedView)))
+        view.addSubview(cardView)
+        addChild(fullScreenController)
+        appFullScreeController = fullScreenController
         
         guard let cell = collectionView.cellForItem(at: indexPath) else { return }
-        print(cell.frame)
         
         viewModel.startingFrame = cell.superview?.convert(cell.frame, to: nil)
-        redView.frame = viewModel.startingFrame ?? .zero
-        redView.layer.cornerRadius = 16
+        cardView.frame = viewModel.startingFrame ?? .zero
+        cardView.layer.cornerRadius = 16
         
         UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
-            redView.frame = self.view.frame
+            cardView.frame = self.view.frame
+            self.tabBarController?.tabBar.frame.origin.y = self.view.frame.size.height
         }, completion: nil)
     }
 }
