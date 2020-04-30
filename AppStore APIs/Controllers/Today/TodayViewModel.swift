@@ -10,4 +10,8 @@ import UIKit
 
 class TodayViewModel {
     var startingFrame: CGRect?
+    var topConstraint: NSLayoutConstraint?
+    var leadingConstraint: NSLayoutConstraint?
+    var widthConstraint: NSLayoutConstraint?
+    var heightConstraint: NSLayoutConstraint?
 }

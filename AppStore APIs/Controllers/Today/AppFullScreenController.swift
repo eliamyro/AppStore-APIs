@@ -8,7 +8,29 @@
 
 import UIKit
 
+protocol DismissDelegate: class {
+    func onDismissButtonTapped(controller: UIViewController)
+}
+
 class AppFullScreenController: UITableViewController {
+    
+    // MARK: - Properties
+    
+    weak var delelgate: DismissDelegate?
+    
+    // MARK: - Views
+    
+    lazy var dismissButton: UIButton = {
+        let button = UIButton(type: .system)
+        let symbolConfig = UIImage.SymbolConfiguration(pointSize: 24)
+        button.setImage(Image.close?.withConfiguration(symbolConfig), for: .normal)
+        button.tintColor = #colorLiteral(red: 0.2009405196, green: 0.4603905082, blue: 0.9551178813, alpha: 1)
+        
+        button.addTarget(self, action: #selector(handleDismissButton), for: .touchUpInside)
+        return button
+    }()
+    
+    lazy var todayCell = TodayCell()
     
     // MARK: - Lifecycle
     
@@ -25,6 +47,25 @@ class AppFullScreenController: UITableViewController {
         
         tableView.register(AppFullScreenDescriptionCell.self, forCellReuseIdentifier: AppFullScreenDescriptionCell.reuseIdentifier)
         tableView.separatorStyle = .none
+        
+        addViews()
+        anchorViews()
+    }
+    
+    // MARK: - Constraints
+    
+    private func addViews() {
+        todayCell.addSubview(dismissButton)
+    }
+    
+    private func anchorViews() {
+        dismissButton.anchor(top: todayCell.topAnchor, trailing: todayCell.trailingAnchor, margin: .init(top: 0, left: 0, bottom: 0, right: 16))
+    }
+    
+    // MARK: - Selectors
+    
+    @objc private func handleDismissButton() {
+        delelgate?.onDismissButtonTapped(controller: self)
     }
 }
 
@@ -42,8 +83,7 @@ extension AppFullScreenController {
         return cell
     }
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = TodayCell()
-        return header
+        return todayCell
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

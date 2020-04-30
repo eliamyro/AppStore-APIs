@@ -42,17 +42,60 @@ class TodayController: BaseListController {
         collectionView.contentInset = .init(top: 32, left: 32, bottom: 32, right: 32)
     }
     
-    @objc private func handleRemoveRedView(gesture: UITapGestureRecognizer) {
+    @objc private func handleRemoveRedView(controller: UIViewController) {
         UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
-            gesture.view?.frame = self.viewModel.startingFrame ?? .zero
+            self.view.layoutIfNeeded()
+            self.appFullScreeController?.tableView.scrollToRow(at: [0,0], at: .top, animated: true)
+            guard let startingFrame = self.viewModel.startingFrame else { return }
+            self.viewModel.topConstraint?.constant = startingFrame.origin.y
+            self.viewModel.leadingConstraint?.constant = startingFrame.origin.x
+            self.viewModel.widthConstraint?.constant = startingFrame.width
+            self.viewModel.heightConstraint?.constant = startingFrame.height
+            self.view.layoutIfNeeded()
+            
             if let tabBarFrame = self.tabBarController?.tabBar.frame {
                 self.tabBarController?.tabBar.frame.origin.y = self.view.frame.size.height - tabBarFrame.height
             }
             
         }, completion: { _ in
-            gesture.view?.removeFromSuperview()
+            controller.view.removeFromSuperview()
             self.appFullScreeController?.removeFromParent()
         })
+    }
+    
+    private func showFullScreenController(indexPath: IndexPath) {
+        let fullScreenController = AppFullScreenController(style: .grouped)
+        fullScreenController.delelgate = self
+        
+        guard let cardView = fullScreenController.view else { return }
+        cardView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(cardView)
+        addChild(fullScreenController)
+        appFullScreeController = fullScreenController
+        
+        guard let cell = collectionView.cellForItem(at: indexPath) else { return }
+        
+        guard let startingFrame = cell.superview?.convert(cell.frame, to: nil) else { return }
+        viewModel.startingFrame = startingFrame
+        cardView.frame = viewModel.startingFrame ?? .zero
+        cardView.layer.cornerRadius = 16
+        
+        viewModel.topConstraint = cardView.topAnchor.constraint(equalTo: view.topAnchor, constant: startingFrame.origin.y)
+        viewModel.leadingConstraint = cardView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: startingFrame.origin.x)
+        viewModel.widthConstraint = cardView.widthAnchor.constraint(equalToConstant: startingFrame.width)
+        viewModel.heightConstraint = cardView.heightAnchor.constraint(equalToConstant: startingFrame.height)
+        
+        [viewModel.topConstraint, viewModel.leadingConstraint, viewModel.widthConstraint, viewModel.heightConstraint].forEach { $0?.isActive = true}
+        self.view.layoutIfNeeded()
+        
+        UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
+            self.viewModel.topConstraint?.constant = 0
+            self.viewModel.leadingConstraint?.constant = 0
+            self.viewModel.widthConstraint?.constant = self.view.frame.width
+            self.viewModel.heightConstraint?.constant = self.view.frame.height
+            self.view.layoutIfNeeded()
+            self.tabBarController?.tabBar.frame.origin.y = self.view.frame.size.height
+        }, completion: nil)
     }
 }
 
@@ -70,24 +113,7 @@ extension TodayController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        let fullScreenController = AppFullScreenController(style: .grouped)
-        guard let cardView = fullScreenController.view else { return }
-        cardView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleRemoveRedView)))
-        view.addSubview(cardView)
-        addChild(fullScreenController)
-        appFullScreeController = fullScreenController
-        
-        guard let cell = collectionView.cellForItem(at: indexPath) else { return }
-        
-        viewModel.startingFrame = cell.superview?.convert(cell.frame, to: nil)
-        cardView.frame = viewModel.startingFrame ?? .zero
-        cardView.layer.cornerRadius = 16
-        
-        UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
-            cardView.frame = self.view.frame
-            self.tabBarController?.tabBar.frame.origin.y = self.view.frame.size.height
-        }, completion: nil)
+        showFullScreenController(indexPath: indexPath)
     }
 }
 
@@ -100,6 +126,14 @@ extension TodayController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 32    }
+}
+
+// MARK: - DismissDelegate
+
+extension TodayController: DismissDelegate {
+    func onDismissButtonTapped(controller: UIViewController) {
+        handleRemoveRedView(controller: controller)
+    }
 }
 
 // MARK: - PreviewProvider
