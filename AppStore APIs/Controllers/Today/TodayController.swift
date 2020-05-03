@@ -39,18 +39,19 @@ class TodayController: BaseListController {
         
         collectionView.backgroundColor = UIColor(white: 0.95, alpha: 1)
         collectionView.register(TodayCell.self, forCellWithReuseIdentifier: TodayCell.reuseIdentifier)
-        collectionView.contentInset = .init(top: 32, left: 32, bottom: 32, right: 32)
     }
     
-    @objc private func handleRemoveRedView(controller: UIViewController) {
+    private func dismissFullScreenController() {
         UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
-            self.view.layoutIfNeeded()
+            
             self.appFullScreeController?.tableView.scrollToRow(at: [0,0], at: .top, animated: true)
+            
             guard let startingFrame = self.viewModel.startingFrame else { return }
             self.viewModel.topConstraint?.constant = startingFrame.origin.y
             self.viewModel.leadingConstraint?.constant = startingFrame.origin.x
             self.viewModel.widthConstraint?.constant = startingFrame.width
             self.viewModel.heightConstraint?.constant = startingFrame.height
+            
             self.view.layoutIfNeeded()
             
             if let tabBarFrame = self.tabBarController?.tabBar.frame {
@@ -58,18 +59,21 @@ class TodayController: BaseListController {
             }
             
         }, completion: { _ in
-            controller.view.removeFromSuperview()
+            self.appFullScreeController?.view.removeFromSuperview()
             self.appFullScreeController?.removeFromParent()
         })
     }
     
     private func showFullScreenController(indexPath: IndexPath) {
         let fullScreenController = AppFullScreenController(style: .grouped)
-        fullScreenController.delelgate = self
+        fullScreenController.todayCell.todayItem = viewModel.items[indexPath.item]
+        fullScreenController.dismissHandler = {
+            self.dismissFullScreenController()
+        }
         
-        guard let cardView = fullScreenController.view else { return }
-        cardView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(cardView)
+        guard let fullScreenView = fullScreenController.view else { return }
+        fullScreenView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(fullScreenView)
         addChild(fullScreenController)
         appFullScreeController = fullScreenController
         
@@ -77,13 +81,13 @@ class TodayController: BaseListController {
         
         guard let startingFrame = cell.superview?.convert(cell.frame, to: nil) else { return }
         viewModel.startingFrame = startingFrame
-        cardView.frame = viewModel.startingFrame ?? .zero
-        cardView.layer.cornerRadius = 16
+        fullScreenView.frame = viewModel.startingFrame ?? .zero
+        fullScreenView.layer.cornerRadius = 16
         
-        viewModel.topConstraint = cardView.topAnchor.constraint(equalTo: view.topAnchor, constant: startingFrame.origin.y)
-        viewModel.leadingConstraint = cardView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: startingFrame.origin.x)
-        viewModel.widthConstraint = cardView.widthAnchor.constraint(equalToConstant: startingFrame.width)
-        viewModel.heightConstraint = cardView.heightAnchor.constraint(equalToConstant: startingFrame.height)
+        viewModel.topConstraint = fullScreenView.topAnchor.constraint(equalTo: view.topAnchor, constant: startingFrame.origin.y)
+        viewModel.leadingConstraint = fullScreenView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: startingFrame.origin.x)
+        viewModel.widthConstraint = fullScreenView.widthAnchor.constraint(equalToConstant: startingFrame.width)
+        viewModel.heightConstraint = fullScreenView.heightAnchor.constraint(equalToConstant: startingFrame.height)
         
         [viewModel.topConstraint, viewModel.leadingConstraint, viewModel.widthConstraint, viewModel.heightConstraint].forEach { $0?.isActive = true}
         self.view.layoutIfNeeded()
@@ -103,11 +107,12 @@ class TodayController: BaseListController {
 
 extension TodayController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return viewModel.items.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TodayCell.reuseIdentifier, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TodayCell.reuseIdentifier, for: indexPath) as! TodayCell
+        cell.todayItem = viewModel.items[indexPath.item]
         
         return cell
     }
@@ -126,13 +131,9 @@ extension TodayController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 32    }
-}
-
-// MARK: - DismissDelegate
-
-extension TodayController: DismissDelegate {
-    func onDismissButtonTapped(controller: UIViewController) {
-        handleRemoveRedView(controller: controller)
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return .init(top: 32, left: 0, bottom: 32, right: 0)
     }
 }
 

@@ -14,14 +14,50 @@ class TodayCell: UICollectionViewCell {
     
     static let reuseIdentifier = "TodayCell"
     
+    var todayItem: TodayItem? {
+        didSet {
+            configureViewsWithTodayItem()
+        }
+    }
+    
     // MARK: - Views
+    
+    lazy var categoryLabel: UILabel = {
+        let label = UILabel()
+        label.text = "LIFE HACK"
+        label.font = .boldSystemFont(ofSize: 20)
+        
+        return label
+    }()
+    
+    lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Utilizing your time"
+        label.font = .boldSystemFont(ofSize: 26)
+        
+        return label
+    }()
+    
+    lazy var descriptionLabel: UILabel = {
+        let label = UILabel()
+        label.text = "All the tools and apps you need to inteligently organize your life the right way"
+        label.font = .systemFont(ofSize: 16)
+        label.numberOfLines = 3
+        
+        return label
+    }()
+    
+    lazy var imageContainerView = UIView()
     
     lazy var cardImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = Image.garden
         imageView.contentMode = .scaleAspectFit
+        
         return imageView
     }()
+    
+    lazy var todayStackView = VerticalStackView(arrangedSubviews: [categoryLabel, titleLabel, imageContainerView, descriptionLabel], spacing: 8)
     
     // MARK: - Lifecycle
     
@@ -45,14 +81,27 @@ class TodayCell: UICollectionViewCell {
         anchorViews()
     }
     
+    private func configureViewsWithTodayItem() {
+        guard let todayItem = todayItem else { return }
+        
+        backgroundColor = todayItem.backgroundColor
+        categoryLabel.text = todayItem.category
+        titleLabel.text = todayItem.title
+        descriptionLabel.text = todayItem.description
+        cardImageView.image = todayItem.image
+    }
+    
     // MARK: - Constraints
     
     private func addViews() {
-        addSubview(cardImageView)
+        addSubview(todayStackView)
     }
     
     private func anchorViews() {
-        cardImageView.anchorHW(width: widthAnchor, wMultiplier: 0.7)
+        todayStackView.fillSuperview(padding: .init(top: 24, left: 24, bottom: 24, right: 24))
+        
+        imageContainerView.addSubview(cardImageView)
+        cardImageView.anchorHeightWidth(heightConstant: 240, widthConstant: 240)
         cardImageView.anchorCenterToView(view: self)
     }
 }

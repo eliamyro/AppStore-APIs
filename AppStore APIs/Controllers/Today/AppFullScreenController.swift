@@ -8,15 +8,11 @@
 
 import UIKit
 
-protocol DismissDelegate: class {
-    func onDismissButtonTapped(controller: UIViewController)
-}
-
 class AppFullScreenController: UITableViewController {
     
     // MARK: - Properties
     
-    weak var delelgate: DismissDelegate?
+    var dismissHandler: (() -> ())?
     
     // MARK: - Views
     
@@ -47,6 +43,7 @@ class AppFullScreenController: UITableViewController {
         
         tableView.register(AppFullScreenDescriptionCell.self, forCellReuseIdentifier: AppFullScreenDescriptionCell.reuseIdentifier)
         tableView.separatorStyle = .none
+        tableView.allowsSelection = false
         
         addViews()
         anchorViews()
@@ -65,7 +62,8 @@ class AppFullScreenController: UITableViewController {
     // MARK: - Selectors
     
     @objc private func handleDismissButton() {
-        delelgate?.onDismissButtonTapped(controller: self)
+        dismissButton.isHidden = true
+        dismissHandler?()
     }
 }
 

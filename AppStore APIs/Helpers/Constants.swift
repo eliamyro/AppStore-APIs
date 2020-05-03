@@ -14,6 +14,7 @@ enum Image {
     static let search = UIImage(named: "search")
     static let star = UIImage(systemName: "star.fill")
     static let garden = UIImage(named: "garden")
+    static let holiday = UIImage(named: "holiday")
     static let close = UIImage(systemName: "xmark.circle.fill")
 }
 
